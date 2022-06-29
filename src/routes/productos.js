@@ -4,7 +4,6 @@ const router =  express.Router();
 const pool = require('../database.js');
 
 
-
 router.get('/', async (req, res) => {
     let listProduct = await pool.query('SELECT * FROM product');
     
@@ -28,10 +27,10 @@ router.get('/:id', async (req, res) =>{
 
 router.post('/create', async (req, res)=> {
     const { name, codeBarras, gramaje, stock , price, dateRegister, description, photoProduct } = req.body;
-    // var dateCreated = new Date().toISOString();
+    var dateCreated = new Date().toISOString();
     //var dateCreated2 = new Date().toLocaleString();
     const product ={
-        name, codeBarras, gramaje, stock , price, dateRegister, description, photoProduct
+        name, codeBarras, gramaje, stock , price, dateRegister: dateCreated, description, photoProduct
     };
 
     await pool.query('INSERT INTO product set ?', [product]);
@@ -60,11 +59,10 @@ router.post('/update/:id', async (req, res)=>{
 router.post ('/delete/:id', async (req, res) =>{
     const { id } = req.params;
 
-    await pool.query('DELETE product WHERE id = ?', [id]);
+    await pool.query('DELETE FROM product WHERE id = ?', [id]);
     res.json({
         status: 200,
-        message: "Se ha eliminado correctamente el producto"
+        message: "Se ha eliminado correctamente"
     });
 });
-
 module.exports = router;

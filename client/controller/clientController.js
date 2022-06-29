@@ -5,6 +5,15 @@ const getClientById = async id => {
     }).done(res => res);
 };
 
+const blobToBase64 = (blob) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+            resolve(reader.result.split(',')[1]);
+        }
+    })
+}
 
 const getInfoClient = async id => {
     var client = await getClientById(id);
@@ -74,27 +83,6 @@ const getClient = () => {
         }
     });
 };
-
-// const getClientSelect = () => {
-//     $.ajax({
-//         type: 'GET',
-//         headers: { "Accept": "application/json" },
-//         url: 'http://localhost:4000/client'
-//     }).done(res => {
-//         console.log(res.listClient);
-
-//         let listClient = res.listClient;
-//         // let select = $("#select");
-//         var select = document.getElementById('selectCliente').value;
-//         for (let i = 0; i < listClient.length; i++) {
-//             console.log("si entra al for")
-//             var opt = document.createElement('option');
-//             opt.value = i.listClient;
-//             opt.innerHTML = i.listClient;
-//             select.appendChild(opt);
-//         }
-//     });
-// };
 
 
 function registerClient (){
@@ -280,30 +268,5 @@ function doSearch()
             }
 
         }
-
-            // mostramos las coincidencias
-
-            // const lastTR=tableReg.rows[tableReg.rows.length-1];
-
-            // const td=lastTR.querySelector("td");
-
-            // lastTR.classList.remove("hide", "red");
-
-            // if (searchText == "") {
-
-            //     lastTR.classList.add("hide");
-
-            // } else if (total) {
-
-            //     td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
-
-            // } else {
-
-            //     lastTR.classList.add("red");
-
-            //     td.innerHTML="No se han encontrado coincidencias";
-
-            // }
-
     }
 getClient();
