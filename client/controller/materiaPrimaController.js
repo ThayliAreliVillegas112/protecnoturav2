@@ -1,10 +1,10 @@
-const getProductById = async id => {
+const getMpById = async id => {
     return await $.ajax({
         type: 'GET',
-        url: 'http://localhost:4000/product/' + id
+        url: 'http://localhost:4000/materiaP/' + id
     }).done(res => res);
 };
-const getIdProduct = async id => {
+const getIdMP = async id => {
     document.getElementById("id_deleteProduct").value = id;
     console.log(id_deleteProduct);
     console.log(document.getElementById("id_deleteProduct").value);
@@ -20,25 +20,19 @@ const getIdProduct = async id => {
 //     })
 // }
 
-const getInfoProduct = async id => {
-    var product = await getProductById(id);
-    console.log(product);
+const getInfoMP = async id => { //Este sirve para obtener la información del nombre y precio para mostrarlo ene el modal para registrar una compra
+    var materiaPrima = await getMpById(id);
+    console.log(materiaPrima);
 
-    document.getElementById('nameProduct').value = product.listProduct[0].name;
-    document.getElementById('codeBarras').value = product.listProduct[0].codeBarras;
-    document.getElementById('gramaje').value = product.listProduct[0].gramaje;
-    document.getElementById('stock').value = product.listProduct[0].stock;
-    document.getElementById('price').value = product.listProduct[0].price;
-    document.getElementById('dateRegister').value = product.listProduct[0].dateRegister;
-    document.getElementById('description').value = product.listProduct[0].description;
-    document.getElementById('photoProduct').value = product.listProduct[0].photoProduct;
-    console.log(product);
+    document.getElementById('nameM').value = materiaPrima.listMateria[0].nameM;
+    document.getElementById('priceClient').value = materiaPrima.listMateria[0].pricePublic;
+    console.log(materiaPrima);
     console.log("si esta entrando");
 
 
 };
 
-const getInfoUpdateProduct = async id => {
+const getInfoUpdateMP = async id => {
     let product = await getProductById(id);
 
     document.getElementById('id_updateProduct').value = id;
@@ -54,33 +48,39 @@ const getInfoUpdateProduct = async id => {
 
 };
 
-const getProduct = () => {
+const getMateriaPrima = () => {
     $.ajax({
         type: 'GET',
         headers: { "Accept": "application/json" },
-        url: 'http://localhost:4000/product'
+        url: 'http://localhost:4000/materiaP'
     }).done(res => {
-        console.log(res.listProduct);
+        console.log(res.listMateria);
 
-        let listProduct = res.listProduct;
-        let table = $("#tablaProductos");
+        let listMateria = res.listMateria;
+        let table = $("#materiaPrimaTable");
+        // let stock = 0;
         
-        for (let i = 0; i < listProduct.length; i++) {
+        for (let i = 0; i < listMateria.length; i++) {
+            stock = listMateria[i].cantidad;
+            if(stock == null){
+                stock = "0"
+            }
             table.append(
                 "<tr>" +
                 "<td>" + (i+1) + "</td>" +
-                "<td>" + listProduct[i].name + "</td>" +
-                "<td>" + listProduct[i].stock + "</td>" +
-                "<td>" + '<button onclick="getInfoProduct(' + listProduct[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsProduct"> <i class="fa fa-info" aria-hidden="true"></i></button> </td>' +
-                "<td>" + '<button onclick="getInfoUpdateProduct(' + listProduct[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#updateProduct"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
-                "<td>" + '<button onclick="getIdProduct(' + listProduct[i].id + ');" type="button" class="btn btn-danger text-dark" data-bs-toggle="modal" data-bs-target="#deleteProduct"><i class="fa fa-trash" aria-hidden="true"></i></button> </td>' +
+                "<td>" + listMateria[i].nameM + "</td>" +
+                "<td>" + stock + "</td>" +
+                "<td>" + listMateria[i].pricePublic+ "</td>" +
+                "<td>" + '<button onclick="getInfoMP(' + listMateria[i].id + ');" type="button" class="btn btn-success text-dark" data-bs-toggle="modal" data-bs-target="#addCompra"> <i class="fa fa-folder-plus" aria-hidden="true"></i></button> </td>' +
+                "<td>" + '<button onclick="getInfoUpdateProduct(' + listMateria[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#updateProduct"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
+                "<td>" + '<button onclick="getIdProduct(' + listMateria[i].id + ');" type="button" class="btn btn-info text-dark" data-bs-toggle="modal" data-bs-target="#deleteProduct"><i class="fa fa-list" aria-hidden="true"></i></button> </td>' +
                 "</tr>")
         }
     });
 };
+getMateriaPrima();
 
-
-function registerProduct (){
+function registerMateriaPrima (){  //Solo va a registrar el nombre y precio
     event.preventDefault();
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -102,21 +102,14 @@ function registerProduct (){
     if (result.isConfirmed) { //value
         //aquí estaria el codigo del registro
         console.log("si entra para el llenado")
-        let name = document.getElementById('nameProductRe').value;
-        let codeBarras = document.getElementById('codeBarrasRe').value;
-        let gramaje = document.getElementById('gramajeRe').value;
-        var stock = document.getElementById('stockRe').value;
-        let price = document.getElementById('priceRe').value
-        let dateRegister = document.getElementById('dateRegisterRe').value;
-        let description = document.getElementById('descriptionRe').value;
-        let photoProduct = document.getElementById('photoProductRe').value;
-
+        let nameM = document.getElementById('nameMRe').value;
+        let pricePublic = document.getElementById('pricePublicRe').value;
         console.log(result);
         
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:4000/product/create',
-        data: { name, codeBarras, gramaje, stock, price, dateRegister, description, photoProduct }
+        url: 'http://localhost:4000/materiaP/create',
+        data: { nameM, pricePublic}
     }).done(function (res) {
         console.log(res);
         console.log("Si registra")
@@ -126,9 +119,15 @@ function registerProduct (){
             'Se ha registrado el producto exitosamente',
             'success'
         )
-        let formulario = document.getElementById('formuProduct');
+        let formulario = document.getElementById('materiaPrimaN');
         formulario.reset();
-            
+        $('#addMateria'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
+        setTimeout(function() {
+            let refresh = document.getElementById('materiaPrimaN');
+        refresh= location.reload();
+            location.reload(true);
+          }, 3000);
+        
         } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -149,6 +148,7 @@ function registerProduct (){
           })
           
 };
+
 
 
 function updateProduct(){
@@ -325,4 +325,3 @@ function doSearchProduct()
     //         //getoffice();
     //     });
     // };
-getProduct();

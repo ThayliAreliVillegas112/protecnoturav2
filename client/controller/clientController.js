@@ -81,6 +81,7 @@ const getClient = () => {
                 "<td>" + '<a href="orderTracking.html" class="btn btn-info" role="button" ><i class="fa fa-list" aria-hidden="true"></i></a> </td>' +
                 "</tr>")
         }
+        
     });
 };
 
@@ -211,7 +212,12 @@ function updateClient(){
             'Se ha modificado al cliente exitosamente',
             'success'
         )
-        
+        $('#update'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
+        setTimeout(function() {
+            let refresh = document.getElementById('tabla');
+        refresh= location.reload();
+            location.reload(true);
+          }, 2000);
         } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -268,5 +274,8 @@ function doSearch()
             }
 
         }
-    }
+}
+
+
+
 getClient();
