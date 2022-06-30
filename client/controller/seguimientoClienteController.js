@@ -39,7 +39,7 @@ const getSegClient = () => {
                 "<td>" + (i+1) + "</td>" +
                 "<td>" + dateRegister + "</td>" +
                 "<td>" + listSegClient[i].identificador + "</td>" +
-                "<td>" + '<button onclick="getSegInfoClient(' + listSegClient[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsSeguimiento"> <i class="fa fa-info" aria-hidden="true"></i></button> </td>' +
+                "<td>" + '<button onclick="getSegInfoClient(' + listSegClient[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsSeguimiento"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
                 "</tr>")
         }
     });

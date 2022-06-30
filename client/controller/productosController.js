@@ -71,7 +71,7 @@ const getProduct = () => {
                 "<td>" + (i+1) + "</td>" +
                 "<td>" + listProduct[i].name + "</td>" +
                 "<td>" + listProduct[i].stock + "</td>" +
-                "<td>" + '<button onclick="getInfoProduct(' + listProduct[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsProduct"> <i class="fa fa-info" aria-hidden="true"></i></button> </td>' +
+                "<td>" + '<button onclick="getInfoProduct(' + listProduct[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsProduct"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
                 "<td>" + '<button onclick="getInfoUpdateProduct(' + listProduct[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#updateProduct"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
                 "<td>" + '<button onclick="getIdProduct(' + listProduct[i].id + ');" type="button" class="btn btn-danger text-dark" data-bs-toggle="modal" data-bs-target="#deleteProduct"><i class="fa fa-trash" aria-hidden="true"></i></button> </td>' +
                 "</tr>")

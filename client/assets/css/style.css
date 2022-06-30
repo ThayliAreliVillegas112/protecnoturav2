@@ -108,7 +108,9 @@
     height:38px;
 }
 
-
+.infoBtn{
+    width: 19px;
+}
 /* eSTILO PARA BUSCADOR */
 
 datos {border:1px solid #ccc;padding:10px;font-size:1em;}
