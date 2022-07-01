@@ -5,23 +5,23 @@ const pool = require('../database.js');
 
 
 router.get('/', async (req, res) => {
-    let listMateria = await pool.query('SELECT * FROM materiaPrima');
+    let listHarina = await pool.query('SELECT * FROM harina');
     
     res.json({
         status: 200,
-        message: "Se ha listado correctamente las materias primas",
-        listMateria: listMateria
+        message: "Se ha listado correctamente las harinas registradas",
+        listHarina: listHarina
     });
-    console.log(listMateria);
+    console.log(listHarina);
 })
 
 router.get('/:id', async (req, res) =>{
     const { id } = req.params;
-    let listMateria = await pool.query('SELECT * FROM materiaPrima WHERE id = ?', [id]);
+    let listHarina = await pool.query('SELECT * FROM materiaPrima WHERE id = ?', [id]);
     res.json({
         status: 200,
         message: "Se ha encontrado la materia prima",
-        listMateria: listMateria
+        listHarina: listHarina
     });
 });
 

@@ -54,8 +54,17 @@
         </section>
         <div class="row justify-content-center" style="margin-top: 30px;">
             <div class="col-10">
-              <table class="table " id="materiaPrimaTable">
+              <table class="table table-hover" id="materiaPrimaTable">
                   <thead>
+                    <div class="input-group">
+                      <div class="form-outline">
+                        <input id="search-focusMateriaPrima" type="search" class="form-control" onkeyup="doSearchMateriaPrima()" />
+                        <label class="form-label" for="form1">Buscar</label>
+                      </div>
+                      <button type="button" class="btn btn-primary buscar">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Nombre</th>
@@ -82,8 +91,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form onsubmit="return registerCompra()">
+                <form action="javascript:void(0);" onsubmit="return registerCompra();" id="agregarCompra">
                   <div class="row">
+                    <input type="hidden" id="id_nombreMP">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="disabledTextInput" class="form-label">Materia Prima</label>
@@ -147,7 +157,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="disabledTextInput" class="form-label">Quíen recibió</label>
-                        <input type="text" id="quien recibio" class="form-control" >
+                        <input type="text" id="quienRecibio" class="form-control" >
                       </div>
                     </div>
                     <div class="text-end">
@@ -205,18 +215,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form onsubmit="return ModifyName()">
+                <form action="javascript:void(0);" onsubmit="return updateNamePrice();">
                   <div class="row">
+                    <input type="hidden" id="id_updateNP">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="disabledTextInput" class="form-label">Nombre de la materia prima</label>
-                        <input type="text" id="disabledTextInput" class="form-control" >
+                        <input type="text" id="nameM_up" class="form-control" >
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="disabledTextInput" class="form-label">Precio al público</label>
-                        <input type="number" id="disabledTextInput" class="form-control" >
+                        <input type="number" id="pricePublic_up" class="form-control" >
                       </div>
                     </div>
                   </div>
