@@ -49,6 +49,7 @@ const getMateriaPrima = () => {  //Obtiene todos los registros que se tienen de 
         
         for (let i = 0; i < listMateria.length; i++) {
             stock = listMateria[i].cantidad;
+            console.log(stock);
             if(stock == null){
                 stock = "0"
             }
@@ -56,7 +57,7 @@ const getMateriaPrima = () => {  //Obtiene todos los registros que se tienen de 
                 "<tr>" +
                 "<td>" + (i+1) + "</td>" +
                 "<td>" + listMateria[i].nameM + "</td>" +
-                "<td>" + stock + "</td>" +
+                "<td>" + listMateria[i].stock + "</td>" +
                 "<td>" + listMateria[i].pricePublic+ "</td>" +
                 "<td>" + '<button onclick="getInfoMP(' + listMateria[i].id + ');" type="button" class="btn btn-success text-dark" data-bs-toggle="modal" data-bs-target="#addCompra"> <i class="fa fa-folder-plus" aria-hidden="true"></i></button> </td>' +
                 "<td>" + '<button onclick="getInfoUpdateMP(' + listMateria[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#modify"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
