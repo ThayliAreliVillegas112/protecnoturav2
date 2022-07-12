@@ -73,18 +73,18 @@ const getClient = () => {
         for (let i = 0; i < listClient.length; i++) {
             table.append(
                 "<tr>" +
-                "<td>" + (i+1) + "</td>" +
-                "<td>" + listClient[i].name + "</td>" +
+                "<td>" + (i+1) + "</td>" + 
+                "<td>" + listClient[i].name +" "+ listClient[i].surname+ " "+ listClient[i].lastname+ "</td>" +
                 "<td>" + listClient[i].email + "</td>" +
                 "<td>" + '<button onclick="getInfoClient(' + listClient[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#details"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
                 "<td>" + '<button onclick="getInfoUpdateClient(' + listClient[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#update"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
                 "<td>" + '<a href="orderTracking.html" class="btn btn-info" role="button" ><i class="fa fa-list" aria-hidden="true"></i></a> </td>' +
                 "</tr>")
+                
         }
         
     });
 };
-
 
 function registerClient (){
     event.preventDefault();

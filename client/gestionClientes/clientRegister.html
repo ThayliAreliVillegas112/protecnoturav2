@@ -66,27 +66,27 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Nombre</label>
-                                <input type="text" id="nameRe" class="form-control" placeholder="Ana">
+                                <input type="text" id="nameRe" class="form-control" placeholder="Ana" required>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Apellido paterno</label>
                                 <input type="text" id="surnameRe" class="form-control"
-                                    placeholder="Olivera">
+                                    placeholder="Olivera" required>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Apellido materno</label>
                                 <input type="text" id="lastnameRe" class="form-control"
-                                    placeholder="Delgado">
+                                    placeholder="Delgado" required>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Edad</label>
-                                <input type="text" id="ageRe" class="form-control"
+                                <input type="number" id="ageRe" class="form-control"
                                     placeholder="20">
                             </div>
                         </div>
@@ -94,14 +94,14 @@
                         <div class="col-md-3 margen1">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Dirección</label>
-                                <textarea class="form-control" id="addressRe"></textarea>
+                                <textarea class="form-control" id="addressRe" required></textarea>
                             </div>
                         </div>
                         <div class="col-md-3 margen1">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Teléfono</label>
                                 <input type="tel" id="phoneRe" class="form-control"
-                                    placeholder="7775698763">
+                                    placeholder="7775698763" required maxlength="10">
                             </div>
                         </div>
                         <div class="col-md-3 margen1">
@@ -115,7 +115,7 @@
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Correo</label>
                                 <input type="email" id="emailRe" class="form-control"
-                                    placeholder="ana@gmail.com">
+                                    placeholder="ana@gmail.com" required>
                             </div>
                         </div>
                         <div class="col-md-3 margen1">
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="text-end margen2">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->
                         <button type="submit" class="btn btn-success">Registrar</button>
                     </div>
                     
