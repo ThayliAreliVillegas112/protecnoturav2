@@ -38,6 +38,7 @@ router.get('/:id', async (req, res) =>{
 });
 
 router.post('/create', async (req, res)=> {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo } = req.body;
     // var dateCreated = new Date().toISOString();
     //var dateCreated2 = new Date().toLocaleString();

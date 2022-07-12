@@ -1,3 +1,4 @@
+
 const getMpById = async id => {
     return await $.ajax({
         type: 'GET',
@@ -35,6 +36,29 @@ const getInfoUpdateMP = async id => { //Acualiza solo el nombre y precio al publ
 
 };
 
+// const getStock = () => {  //Obtiene todos los registros que se tienen de las materias primas (nombe y precio)
+//     $.ajax({
+//         type: 'GET',
+//         headers: { "Accept": "application/json" },
+//         url: 'http://localhost:4000/materiaP/stock/'
+//     }).done(res => {
+//         console.log(res.listcom);
+
+//         let listcom = res.listcom;
+//         // var cantidades = [];
+//         for(let i = 0; i < listcom.length; i++){
+            
+//             cantidades = listcom[i].cantidad;
+//             // console.log(cantidades.slice());
+//             console.log("asta aki")
+//         }
+//         // localStorage.setItem('myArray', JSON.stringify(stock));
+//         //     var array = localStorage.getItem('myArray');
+//         //     // Se parsea para poder ser usado en js con JSON.parse :)
+//         //     array = JSON.parse(array);
+//     });
+// };
+let cantidad2;
 const getMateriaPrima = () => {  //Obtiene todos los registros que se tienen de las materias primas (nombe y precio)
     $.ajax({
         type: 'GET',
@@ -45,27 +69,33 @@ const getMateriaPrima = () => {  //Obtiene todos los registros que se tienen de 
 
         let listMateria = res.listMateria;
         let table = $("#materiaPrimaTable");
-        // let stock = 0;
-        
+        let aux;
         for (let i = 0; i < listMateria.length; i++) {
-            stock = listMateria[i].cantidad;
-            console.log(stock);
-            if(stock == null){
-                stock = "0"
+            aux = listMateria[i].stock;
+            if(listMateria[i].stock == null){
+                aux = "S/R"
             }
             table.append(
                 "<tr>" +
                 "<td>" + (i+1) + "</td>" +
                 "<td>" + listMateria[i].nameM + "</td>" +
-                "<td>" + listMateria[i].stock + "</td>" +
+                "<td ´id=´tablaS´´>" + aux + "</td>" +
                 "<td>" + listMateria[i].pricePublic+ "</td>" +
                 "<td>" + '<button onclick="getInfoMP(' + listMateria[i].id + ');" type="button" class="btn btn-success text-dark" data-bs-toggle="modal" data-bs-target="#addCompra"> <i class="fa fa-folder-plus" aria-hidden="true"></i></button> </td>' +
                 "<td>" + '<button onclick="getInfoUpdateMP(' + listMateria[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#modify"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
                 "<td>" + '<button onclick="getIdProduct(' + listMateria[i].id + ');" type="button" class="btn btn-info text-dark" data-bs-toggle="modal" data-bs-target="#deleteProduct"><i class="fa fa-list" aria-hidden="true"></i></button> </td>' +
                 "</tr>")
+                // console.log("nooo llega")
+                // cantidad2 = document.getElementById('tablaS');
+                // cantidad2 = cantidad2 + aux;
+                // console.log("***************")
+                // console.log(cantidad2)
+                // console.log("+*******************")     
         }
+ 
     });
 };
+// cantidad2 ++;
 getMateriaPrima();
 
 function registerMateriaPrima (){  //Solo va a registrar el nombre y precio
@@ -91,11 +121,12 @@ function registerMateriaPrima (){  //Solo va a registrar el nombre y precio
         console.log("si entra para el llenado")
         let nameM = document.getElementById('nameMRe').value;
         let pricePublic = document.getElementById('pricePublicRe').value;
+        let stock = document.getElementById('stock').value;
         console.log(result);
     $.ajax({
         type: 'POST',
         url: 'http://localhost:4000/materiaP/create',
-        data: { nameM, pricePublic}
+        data: { nameM, pricePublic, stock}
     }).done(function (res) {
         console.log(res);
         console.log("Si registra")
@@ -166,14 +197,20 @@ function registerCompra (){  //Va a registrar la compra de la materia prima sele
         let quienEntrego = document.getElementById('quienEntrego').value;
         let quienRecibio = document.getElementById('quienRecibio').value;
         let materiaPrima_id = document.getElementById('id_nombreMP').value;
+        let stock = document.getElementById('tablaS');
+        stock = stock + cantidad;
         console.log(result);
     $.ajax({
         type: 'POST',
         url: 'http://localhost:4000/materiaP/regCompra/',
-        data: { lote, cantidad, nameProveedor, claveProductor, dateCompra, costales, claveCostales, quienEntrego, quienRecibio, materiaPrima_id}
+        data: { lote, cantidad, nameProveedor, claveProductor, dateCompra, costales, claveCostales, quienEntrego, quienRecibio, materiaPrima_id, stock}
     }).done(function (res) {
         console.log(res);
         console.log("Si registra")
+        // console.log(cantidad2)
+        // cantidad2 += cantidad;
+        // cantidad = cantidad2;
+        // console.log(cantidad);
     });
         swalWithBootstrapButtons.fire(
             'Registro exitoso',

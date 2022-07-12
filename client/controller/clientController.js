@@ -1,3 +1,4 @@
+
 const getClientById = async id => {
     return await $.ajax({
         type: 'GET',
@@ -14,7 +15,23 @@ const blobToBase64 = (blob) => {
         }
     })
 }
+var img;
+function encodeImageFileAsURL(element) {
+    var file = element.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      console.log('RESULT', reader.result)
+      localStorage.setItem("photo", reader.result);
+    }
+    reader.readAsDataURL(file);
+    // img = reader;
+     
+    // JSON.parse(localStorage.getItem("photo"));
 
+console.log("*******}}}**********")
+console.log(img)
+  }
+img;
 const getInfoClient = async id => {
     var client = await getClientById(id);
     console.log(client);
@@ -119,16 +136,24 @@ function registerClient (){
         let facebook = document.getElementById('faceRe').value;
         let tiktok = document.getElementById('tiktokRe').value;
         let instagram = document.getElementById('instagramRe').value;
-        let photo = document.getElementById('photoRe').value;
+        
+        let photo1 = localStorage.getItem("photo");
+        console.log("mmmmmmmmmmm");
+        console.log(photo1);
+       // let photo2 = encodeImageFileAsURL(photo);
+        // let image = document.getOn;
+        
+        // let image = encodeImageFileAsURL(document.getElementById('photoRe').files[0]);
         // let image = document.getElementById('imagenArreglo').files[0];
-  
-        console.log(photo);
-        console.log(result);
+        // console.log("........................ssssss")
+        // console.log(img);
+        // console.log("........................ssssss")
+        // console.log(result);
         
     $.ajax({
         type: 'POST',
         url: 'http://localhost:4000/client/create',
-        data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo }
+        data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo1 }
     }).done(function (res) {
         console.log(res);
     });
@@ -156,7 +181,9 @@ function registerClient (){
                 'Ha ocurrido un error al registrar al cliente',
                 'error'
               )
+              console.log(error);
           })
+          
 };
 
 
