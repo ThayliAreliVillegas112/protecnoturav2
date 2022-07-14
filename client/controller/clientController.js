@@ -15,6 +15,20 @@ const blobToBase64 = (blob) => {
     })
 }
 
+function encodeImageFileAsURL(element) {
+    var file = element.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      console.log('RESULT', reader.result)
+      localStorage.setItem("photo", reader.result);
+    }
+    reader.readAsDataURL(file);
+}
+// const getSeguimiento = async id =>{
+//   var seg = await getClientById(id);
+//   console.log(seg)
+//   document.getElementById('id_seg').value = id;
+// }
 const getInfoClient = async id => {
     var client = await getClientById(id);
     console.log(client);
@@ -78,13 +92,89 @@ const getClient = () => {
                 "<td>" + listClient[i].email + "</td>" +
                 "<td>" + '<button onclick="getInfoClient(' + listClient[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#details"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
                 "<td>" + '<button onclick="getInfoUpdateClient(' + listClient[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#update"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
-                "<td>" + '<a href="orderTracking.html" class="btn btn-info" role="button" ><i class="fa fa-list" aria-hidden="true"></i></a> </td>' +
+                // "<td>" + '<a href="orderTracking.html" class="btn btn-info" role="button" ><i class="fa fa-list" aria-hidden="true"></i></a> </td>' +
                 "</tr>")
                 
         }
         
     });
 };
+getClient();
+// function registerClient (){
+//     event.preventDefault();
+//     const swalWithBootstrapButtons = Swal.mixin({
+//         customClass: {
+//             confirmButton: 'btn btn-success',
+//             cancelButton: 'btn btn-danger'
+//         },
+//         buttonsStyling: false
+//     })
+          
+//     swalWithBootstrapButtons.fire({
+//         title: 'Estás seguro de realizar el registro?',
+//         text: "Te sugerimos que revises la información antes de registrar",
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonText: 'Confirmar',
+//         cancelButtonText: 'Cancelar',
+//         reverseButtons: true
+//     }).then ((result) => {
+//     if (result.isConfirmed) { //value
+//         //aquí estaria el codigo del registro
+//         let name = document.getElementById('nameRe').value;
+//         let surname = document.getElementById('surnameRe').value;
+//         let lastname = document.getElementById('lastnameRe').value;
+//         var age = document.getElementById('ageRe').value;
+//         let address = document.getElementById('addressRe').value
+//         let phone = document.getElementById('phoneRe').value;
+//         let extension = document.getElementById('extensionRe').value;
+//         let email = document.getElementById('emailRe').value;
+//         let company = document.getElementById('companyRe').value;
+//         let facebook = document.getElementById('faceRe').value;
+//         let tiktok = document.getElementById('tiktokRe').value;
+//         let instagram = document.getElementById('instagramRe').value;
+//         let photo = document.getElementById('photoRe').value;
+//         // let image = document.getElementById('imagenArreglo').files[0];
+  
+//         console.log(photo);
+//         console.log(result);
+//         console.log("antes alert");
+        
+//         console.log("despues");
+//     $.ajax({
+//         type: 'POST',
+//         url: 'http://localhost:4000/client/create',
+//         data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo }
+//     }).done(function (res) {
+//         console.log(res);
+        
+//     });
+//         swalWithBootstrapButtons.fire(
+//             'Registro exitoso',
+//             'Se ha registrado al cliente exitosamente',
+//             'success'
+//         )
+//         let formulario = document.getElementById('formu');
+//         formulario.reset();
+            
+//         } else if (
+//             /* Read more about handling dismissals below */
+//             result.dismiss === Swal.DismissReason.cancel
+//         ) {
+//             swalWithBootstrapButtons.fire(
+//             'Acción cancelada',
+//             'No se ha realizado el registro',
+//             'error'
+//             )
+//             }
+//         }).catch((error)=>{
+//             swalWithBootstrapButtons.fire(
+//                 '¡Error al registrar!',
+//                 'Ha ocurrido un error al registrar al cliente',
+//                 'error'
+//               )
+//           })
+// };
 
 function registerClient (){
     event.preventDefault();
@@ -95,7 +185,61 @@ function registerClient (){
         },
         buttonsStyling: false
     })
-          
+    let name = document.getElementById('nameRe').value;
+    let surname = document.getElementById('surnameRe').value;
+    let lastname = document.getElementById('lastnameRe').value;
+    var age = document.getElementById('ageRe').value;
+    let address = document.getElementById('addressRe').value
+    let phone = document.getElementById('phoneRe').value;
+    let extension = document.getElementById('extensionRe').value;
+    let email = document.getElementById('emailRe').value;
+    let company = document.getElementById('companyRe').value;
+    let facebook = document.getElementById('faceRe').value;
+    let tiktok = document.getElementById('tiktokRe').value;
+    let instagram = document.getElementById('instagramRe').value;
+    // let photo = document.getElementById('photoRe').value;
+    let photo1 = localStorage.getItem("photo");
+    let image = photo1;
+        console.log("mmmmmmmmmmm");
+        console.log(photo1);
+
+if (name == "") {
+    Swal.fire({
+        title: "Completa el campo NOMBRE",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+} else if (surname == ""){
+    Swal.fire({
+        title: "Completa el campo APELLIDO MATERNO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(lastname == ""){
+    Swal.fire({
+        title: "Completa el campo APELLIDO PATERNO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(address == ""){
+    Swal.fire({
+        title: "Completa el campo DIRECCIÓN",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(phone == ""){
+    Swal.fire({
+        title: "Completa el campo TELÉFONO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(email == ""){
+    Swal.fire({
+        title: "Completa el campo CORREO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else{
     swalWithBootstrapButtons.fire({
         title: 'Estás seguro de realizar el registro?',
         text: "Te sugerimos que revises la información antes de registrar",
@@ -105,61 +249,40 @@ function registerClient (){
         cancelButtonText: 'Cancelar',
         reverseButtons: true
     }).then ((result) => {
-    if (result.isConfirmed) { //value
-        //aquí estaria el codigo del registro
-        let name = document.getElementById('nameRe').value;
-        let surname = document.getElementById('surnameRe').value;
-        let lastname = document.getElementById('lastnameRe').value;
-        var age = document.getElementById('ageRe').value;
-        let address = document.getElementById('addressRe').value
-        let phone = document.getElementById('phoneRe').value;
-        let extension = document.getElementById('extensionRe').value;
-        let email = document.getElementById('emailRe').value;
-        let company = document.getElementById('companyRe').value;
-        let facebook = document.getElementById('faceRe').value;
-        let tiktok = document.getElementById('tiktokRe').value;
-        let instagram = document.getElementById('instagramRe').value;
-        let photo = document.getElementById('photoRe').value;
-        // let image = document.getElementById('imagenArreglo').files[0];
-  
-        console.log(photo);
-        console.log(result);
-        
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:4000/client/create',
-        data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo }
-    }).done(function (res) {
-        console.log(res);
-    });
-        swalWithBootstrapButtons.fire(
-            'Registro exitoso',
-            'Se ha registrado al cliente exitosamente',
-            'success'
-        )
-        let formulario = document.getElementById('formu');
-        formulario.reset();
-            
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
+        if(result.isConfirmed){
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:4000/client/create',
+                data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, image}
+            }).done(res => {
+                console.log(res)
+                if (res.status === 200) {
+                    swalWithBootstrapButtons.fire(
+                        'Registro exitoso',
+                        'Se ha registrado al cliente exitosamente',
+                        'success'
+                    )
+                    let formulario = document.getElementById('formu'); 
+                    formulario.reset()
+                } else {
+                    Swal.fire({
+                        title: "Hubo un problema al registrar",
+                        confirmButtonText: "Aceptar",
+                        icon: "error",
+                    });
+                }
+            });
+        }{
             swalWithBootstrapButtons.fire(
-            'Acción cancelada',
-            'No se ha realizado el registro',
-            'error'
-            )
-            }
-        }).catch((error)=>{
-            swalWithBootstrapButtons.fire(
-                '¡Error al registrar!',
-                'Ha ocurrido un error al registrar al cliente',
+                'Acción cancelada',
+                'No se ha realizado el registro',
                 'error'
-              )
-          })
+            )
+        }
+    })
+}
+    
 };
-
-
 function updateClient(){
     event.preventDefault();
     const swalWithBootstrapButtons = Swal.mixin({
@@ -278,4 +401,63 @@ function doSearch()
 
 
 
-getClient();
+// VALIDACIÓN DE FORMULARIO
+
+function soloLetras(e) {
+ 
+    var key = e.keyCode || e.which,
+    tecla = String.fromCharCode(key).toLowerCase(),
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyzÁÉÍÓÚäëïöüÄËÏÖÜàèìòùÀÈÌÒÙ",
+    especiales = [8, 37, 39, 46],
+    tecla_especial = false;
+ 
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+            }
+        }
+ 
+    if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+        return false;
+    }
+}
+ 
+// // -- Función para aceptar espacios -- //
+// function valeft(){
+ 
+//     var val = document.getElementById("nombreLeft").value;
+//     var tam = val.length;
+ 
+//         for(i=0;i<tam;i++){
+//             if(!isNaN(val[i]) && val[i] != " ")
+//             document.getElementById("nombreLeft").value='';
+//             }
+// }
+
+// VALIDACIÓN SOLO NUMEROS
+
+
+function esNum(ev, el) {
+    /* ev: evento; el: elemento; */
+    tecla = (document.all) ? ev.keyCode : ev.which;
+
+    // Permite un solo punto decimal
+    if (el.value.indexOf('.') == -1 ? tecla == 46 : false) { return true; }
+
+    // Permite números negativos (después de escribir un número)
+    if (tecla == 45 && el.value !== '') { el.value = (-1) * el.value; }
+
+    // Permite tecla de retroceso (borrar)
+    if (tecla == 8) { return true; }
+
+    // Permite tecla Tab
+    if (tecla == 9) { return true; }
+
+    // Patrón de entrada: solo acepta numeros positivos
+    patron = /[0-9]/;
+    tecla_fin = String.fromCharCode(tecla);
+    return patron.test(tecla_fin);
+}
+
+

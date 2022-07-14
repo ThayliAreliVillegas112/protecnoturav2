@@ -61,59 +61,59 @@
         <article>
             <div class="container">
 
-                <form class="margen1" action="javascript:void(0);" onsubmit="return registerClient();" id="formu">
+                <form class="margen1" name="registration" novalidate action="javascript:void(0);" onsubmit="return registerClient();" id="formu">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="disabledTextInput" class="form-label">Nombre</label>
-                                <input type="text" id="nameRe" class="form-control" placeholder="Ana" required>
+                                <label for="disabledTextInput" class="form-label">Nombre<span class="text-danger">*</span></label>
+                                <input type="text" id="nameRe" class="form-control" placeholder="Ana" onkeypress="return soloLetras(event)" required>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="disabledTextInput" class="form-label">Apellido paterno</label>
+                                <label for="disabledTextInput" class="form-label">Apellido paterno<span class="text-danger">*</span></label>
                                 <input type="text" id="surnameRe" class="form-control"
-                                    placeholder="Olivera" required>
+                                    placeholder="Olivera" onkeypress="return soloLetras(event)"  required>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="disabledTextInput" class="form-label">Apellido materno</label>
+                                <label for="disabledTextInput" class="form-label">Apellido materno<span class="text-danger">*</span></label>
                                 <input type="text" id="lastnameRe" class="form-control"
-                                    placeholder="Delgado" required>
+                                    placeholder="Delgado" onkeypress="return soloLetras(event)"  required>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Edad</label>
                                 <input type="number" id="ageRe" class="form-control"
-                                    placeholder="20">
+                                    placeholder="20" min="2">
                             </div>
                         </div>
 
                         <div class="col-md-3 margen1">
                             <div class="form-group">
-                                <label for="disabledTextInput" class="form-label">Dirección</label>
+                                <label for="disabledTextInput" class="form-label">Dirección<span class="text-danger">*</span></label>
                                 <textarea class="form-control" id="addressRe" required></textarea>
                             </div>
                         </div>
                         <div class="col-md-3 margen1">
                             <div class="form-group">
-                                <label for="disabledTextInput" class="form-label">Teléfono</label>
-                                <input type="tel" id="phoneRe" class="form-control"
-                                    placeholder="7775698763" required maxlength="10">
+                                <label for="disabledTextInput" class="form-label">Teléfono<span class="text-danger">*</span></label>
+                                <input type="text" id="phoneRe" class="form-control"
+                                    placeholder="7775698763" required maxlength="10" pattern="[0-9]+">
                             </div>
                         </div>
                         <div class="col-md-3 margen1">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Extensión</label>
                                 <input type="number" id="extensionRe" class="form-control"
-                                    placeholder="7432">
+                                    placeholder="7432" maxlength="4">
                             </div>
                         </div>
                         <div class="col-md-3 margen1">
                             <div class="form-group">
-                                <label for="disabledTextInput" class="form-label">Correo</label>
+                                <label for="disabledTextInput" class="form-label">Correo<span class="text-danger">*</span></label>
                                 <input type="email" id="emailRe" class="form-control"
                                     placeholder="ana@gmail.com" required>
                             </div>
@@ -152,7 +152,7 @@
                         <div class="col-md-3 margen1">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Foto</label>
-                                <input type="file" id="photoRe" class="form-control">
+                                <input type="file" id="photoRe" class="form-control" >
                             </div>
                         </div>
                     </div>
@@ -165,7 +165,6 @@
             </div>
         </article>
     </section>
-
     
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>

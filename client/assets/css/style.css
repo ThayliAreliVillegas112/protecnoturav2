@@ -126,3 +126,33 @@ datos {border:1px solid #ccc;padding:10px;font-size:1em;}
         .hide {display:none;}
 
         .red {color:Red;}
+
+
+
+
+
+          /* form input[type="email"]:required:valid{
+            border:2px solid green;
+            
+           }
+           form input[type="email"]:focus:required:invalid{
+            border:2px solid red;
+           }
+
+           form input[type="text"]:required:valid{
+            border:2px solid green;
+           }
+           form input[type="text"]:focus:required:invalid{
+            border:2px solid red;
+           }
+           form input[type="number"]:required:valid{
+            border:2px solid green;
+           }
+           form input[type="text"]:focus:required:invalid{
+            border:2px solid red;
+           } */
+
+.btnSeguimiento{
+    margin-left: 40px;
+    background-color: #f0a150;
+}

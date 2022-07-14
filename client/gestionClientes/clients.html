@@ -52,7 +52,7 @@
       </nav>
           <section>
               <div>
-                  <h3 style="margin-top: 40px; margin-left: 25px">Clientes protecnotura</h3>
+                  <h3 style="margin-top: 40px; margin-left: 25px">Clientes protecnotura</h3> 
               </div>
           </section>
           
@@ -68,14 +68,18 @@
                     <button type="button" class="btn btn-primary buscar">
                       <i class="fas fa-search"></i>
                     </button>
+                    <div>
+                      <a href="orderTracking.html" class="btn btn margen3 btnSeguimiento" role="button" style="float: right;" >Segumientos</a>
                   </div>
+                  </div>
+                  
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Correo</th>
                     <th scope="col">Detalles</th>
                     <th scope="col">Modificar</th>
-                    <th scope="col">Seguimiento</th>        
+                    <!-- <th scope="col">Seguimiento</th>         -->
                   </tr>
                   
                 </thead>
@@ -100,6 +104,7 @@
                     <div class="col-md-12">
                       <h5>Información personal</h5>
                     </div>
+                    <input type="hidden" id="id_seg">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="disabledTextInput" class="form-label">Nombre</label>
@@ -145,7 +150,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="disabledTextInput" class="form-label">Edad</label>
-                        <input type="text" id="age" class="form-control" placeholder="22" disabled>
+                        <input type="text" id="age" class="form-control"  placeholder="22" disabled>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -310,6 +315,7 @@
             </div>
           </div>
 
+          
 
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
