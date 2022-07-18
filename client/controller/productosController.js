@@ -79,7 +79,7 @@ const getProduct = () => {
     });
 };
 
-function registerClient (){
+function registerProduct (){
     event.preventDefault();
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -97,8 +97,6 @@ function registerClient (){
     let dateRegister = document.getElementById('dateRegisterRe').value;
     let description = document.getElementById('descriptionRe').value;
     let photoProduct = document.getElementById('photoProductRe').value;
-
-    console.log(result);
 
 if (name == "") {
     Swal.fire({
@@ -162,10 +160,10 @@ if (name == "") {
                 if (res.status === 200) {
                     swalWithBootstrapButtons.fire(
                         'Registro exitoso',
-                        'Se ha registrado al cliente exitosamente',
+                        'Se ha registrado producto exitosamente',
                         'success'
                     )
-                    let formulario = document.getElementById('formu'); 
+                    let formulario = document.getElementById('formuProduct'); 
                     formulario.reset()
                 } else {
                     Swal.fire({
@@ -186,7 +184,9 @@ if (name == "") {
 }
     
 };
-function updateClient(){
+
+
+function updateProduct (){
     event.preventDefault();
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -195,87 +195,63 @@ function updateClient(){
         },
         buttonsStyling: false
     })
-          
+    console.log(id);
+    console.log("Si entra para hacer los cambios");
+    var id = document.getElementById('id_updateProduct').value;
+    let name = document.getElementById('nameProduct_up').value;
+    let codeBarras = document.getElementById('codeBarras_up').value;
+    let gramaje = document.getElementById('gramaje_up').value;
+    let stock = document.getElementById('stock_up').value;
+    let price = document.getElementById('price_up').value;
+    let description = document.getElementById('description_up').value;
+    let photoProduct = document.getElementById('photo_up').value;
+    console.log(id);
+
+if (name == "") {
+    Swal.fire({
+        title: "Completa el campo NOMBRE",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+} else if (codeBarras == ""){
+    Swal.fire({
+        title: "Completa el campo CÓDIGO DE BARRAS",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(gramaje == ""){
+    Swal.fire({
+        title: "Completa el campo GRAMAJE",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(stock == ""){
+    Swal.fire({
+        title: "Completa el campo STOCK",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(price == ""){
+    Swal.fire({
+        title: "Completa el campo PRECIO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(dateRegister == ""){
+    Swal.fire({
+        title: "Completa el campo FECHA",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(description == ""){
+    Swal.fire({
+        title: "Completa el campo DESCRIPCIÓN",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else{
     swalWithBootstrapButtons.fire({
         title: 'Estás seguro de realizar los cambios?',
-        text: "Te sugerimos que revises la información antes de guadar",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar',
-        reverseButtons: true
-    }).then((result) => {
-    if (result.value) { //value
-        //aquí estaria el codigo del registro
-        console.log(id);
-        console.log("Si entra para hacer los cambios");
-        var id = document.getElementById('id_updateC').value;
-        let name = document.getElementById('name_up').value;
-        let surname = document.getElementById('surname_up').value;
-        let lastname = document.getElementById('lastname_up').value;
-        let age = document.getElementById('age_up').value;
-        let address = document.getElementById('address_up').value;
-        let phone = document.getElementById('phone_up').value;
-        let extension = document.getElementById('extension_up').value;
-        let email = document.getElementById('email_up').value;
-        let company = document.getElementById('company_up').value;
-        let facebook = document.getElementById('face_up').value;
-        let tiktok = document.getElementById('tiktok_up').value;
-        let instagram = document.getElementById('instagram_up').value;
-        let photo = document.getElementById('photo_up').value;
-
-        console.log(id);
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:4000/client/update/' + id,
-        data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo }
-    }).done(function (res) {
-        console.log(res);
-       
-    });
-        swalWithBootstrapButtons.fire(
-            'Modificación exitosa',
-            'Se ha modificado al cliente exitosamente',
-            'success'
-        )
-        $('#update'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
-        setTimeout(function() {
-            let refresh = document.getElementById('tabla');
-        refresh= location.reload();
-            location.reload(true);
-          }, 2000);
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            swalWithBootstrapButtons.fire(
-            'Acción cancelada',
-            'No se ha realizado la modificación',
-            'error'
-            )
-            }
-        }).catch((error)=>{
-            swalWithBootstrapButtons.fire(
-                '¡Error al modificar!',
-                'Ha ocurrido un error al modificar al cliente',
-                'error'
-              )
-              console.log(error)
-          })
-};
-
-function registerProduct (){
-    event.preventDefault();
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-    })
-          
-    swalWithBootstrapButtons.fire({
-        title: 'Estás seguro de realizar el registro?',
         text: "Te sugerimos que revises la información antes de registrar",
         icon: 'warning',
         showCancelButton: true,
@@ -283,123 +259,38 @@ function registerProduct (){
         cancelButtonText: 'Cancelar',
         reverseButtons: true
     }).then ((result) => {
-    if (result.isConfirmed) { //value
-        //aquí estaria el codigo del registro
-        console.log("si entra para el llenado")
-        let name = document.getElementById('nameProductRe').value;
-        let codeBarras = document.getElementById('codeBarrasRe').value;
-        let gramaje = document.getElementById('gramajeRe').value;
-        var stock = document.getElementById('stockRe').value;
-        let price = document.getElementById('priceRe').value
-        let dateRegister = document.getElementById('dateRegisterRe').value;
-        let description = document.getElementById('descriptionRe').value;
-        let photoProduct = document.getElementById('photoProductRe').value;
-
-        console.log(result);
-        
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:4000/product/create',
-        data: { name, codeBarras, gramaje, stock, price, dateRegister, description, photoProduct }
-    }).done(function (res) {
-        console.log(res);
-        console.log("Si registra")
-    });
-        swalWithBootstrapButtons.fire(
-            'Registro exitoso',
-            'Se ha registrado el producto exitosamente',
-            'success'
-        )
-        let formulario = document.getElementById('formuProduct');
-        formulario.reset();
-            
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
+        if(result.isConfirmed){
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:4000/product/update/' + id,
+                data: { name, codeBarras, gramaje, stock, price, description, photoProduct}
+            }).done(res => {
+                console.log(res)
+                if (res.status === 200) {
+                    swalWithBootstrapButtons.fire(
+                        'Modificación exitosa',
+                        'Se ha registrado producto exitosamente',
+                        'success'
+                    )
+                    $('#updateProduct'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
+                } else {
+                    Swal.fire({
+                        title: "Hubo un problema al modificar",
+                        confirmButtonText: "Aceptar",
+                        icon: "error",
+                    });
+                }
+            });
+        }{
             swalWithBootstrapButtons.fire(
-            'Acción cancelada',
-            'No se ha realizado el registro',
-            'error'
-            )
-            }
-        }).catch((error)=>{
-            swalWithBootstrapButtons.fire(
-                '¡Error al registrar!',
-                'Ha ocurrido un error al registrar el producto',
+                'Acción cancelada',
+                'No se ha realizado el registro',
                 'error'
-              )
-              console.log(error);
-          })
-          
-};
-
-
-function updateProduct(){
-    event.preventDefault();
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
+            )
+        }
     })
-          
-    swalWithBootstrapButtons.fire({
-        title: 'Estás seguro de realizar los cambios?',
-        text: "Te sugerimos que revises la información antes de guadar",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar',
-        reverseButtons: true
-    }).then((result) => {
-    if (result.value) { //value
-        //aquí estaria el codigo del registro
-        console.log(id);
-        console.log("Si entra para hacer los cambios");
-        var id = document.getElementById('id_updateProduct').value;
-        let name = document.getElementById('nameProduct_up').value;
-        let codeBarras = document.getElementById('codeBarras_up').value;
-        let gramaje = document.getElementById('gramaje_up').value;
-        let stock = document.getElementById('stock_up').value;
-        let price = document.getElementById('price_up').value;
-        let description = document.getElementById('description_up').value;
-        let photoProduct = document.getElementById('photo_up').value;
-        console.log(id);
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:4000/product/update/' + id,
-        data: { name, codeBarras, gramaje, stock, price, description, photoProduct}
-    }).done(function (res) {
-        console.log(res);
-       
-    });
-        swalWithBootstrapButtons.fire(
-            'Modificación exitosa',
-            'Se ha modificado al producto exitosamente',
-            'success'
-        )
-        $('#updateProduct'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
-
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            swalWithBootstrapButtons.fire(
-            'Acción cancelada',
-            'No se ha realizado la modificación',
-            'error'
-            )
-            }
-        }).catch((error)=>{
-            swalWithBootstrapButtons.fire(
-                '¡Error al modificar!',
-                'Ha ocurrido un error al modificar el producto',
-                'error'
-              )
-              console.log(error)
-          })
+}
+    
 };
 
 function doSearchProduct()
@@ -453,7 +344,7 @@ function doSearchProduct()
               
         swalWithBootstrapButtons.fire({
             title: 'Estás seguro de realizar los cambios?',
-            text: "Te sugerimos que revises la información antes de guadar",
+            text: "Te sugerimos que revises la información antes de eliminar",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Confirmar',
@@ -475,7 +366,7 @@ function doSearchProduct()
         });
             swalWithBootstrapButtons.fire(
                 'Modificación exitosa',
-                'Se ha modificado al producto exitosamente',
+                'Se ha eliminado el producto exitosamente',
                 'success'
             )
             
@@ -485,14 +376,14 @@ function doSearchProduct()
             ) {
                 swalWithBootstrapButtons.fire(
                 'Acción cancelada',
-                'No se ha realizado la modificación',
+                'No se ha realizado la eliminación',
                 'error'
                 )
                 }
             }).catch((error)=>{
                 swalWithBootstrapButtons.fire(
                     '¡Error al modificar!',
-                    'Ha ocurrido un error al modificar el producto',
+                    'Ha ocurrido un error al eliminar el producto',
                     'error'
                   )
                   console.log(error)

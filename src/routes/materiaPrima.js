@@ -15,6 +15,29 @@ router.get('/', async (req, res) => {
     console.log(listMateria);
 })
 
+router.get('/registros', async (req, res) => {
+    let listMateria = await pool.query('SELECT * FROM registerCompra s inner JOIN materiaprima c on s.materiaPrima_id = c.id');
+    
+    res.json({
+        status: 200,
+        message: "Se ha listado correctamente las materias primas",
+        listMateria: listMateria
+    });
+    console.log(listMateria);
+})
+
+// router.get('/com/:id', async (req, res) => { // desplegar los registos de compra
+//     const { id } = req.params;
+//     let listMateria = await pool.query('SELECT * FROM registercompra s inner JOIN materiaprima c on s.materiaPrima_id = c.id where s.materiaPrima_id = ?', [id]); //muestra solo las compras de la materia prima seleccionada
+    
+//     res.json({
+//         status: 200,
+//         message: "Se ha listado correctamente las materias primas",
+//         listMateria: listMateria
+//     });
+//     console.log(listMateria);
+// })
+
 router.get('/:id', async (req, res) =>{
     const { id } = req.params;
     let listMateria = await pool.query('SELECT * FROM materiaPrima WHERE id = ?', [id]);

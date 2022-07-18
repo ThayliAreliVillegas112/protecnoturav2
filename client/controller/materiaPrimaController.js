@@ -5,6 +5,13 @@ const getMpById = async id => {
     }).done(res => res);
 };
 
+const getMpRegisterById = async id => {
+    return await $.ajax({
+        type: 'GET',
+        url: 'http://localhost:4000/materiaP/registros/' + id
+    }).done(res => res);
+};
+
 const getIdMP = async id => {
     document.getElementById("id_nombreMP").value = id;
     console.log(id_nombreMP);
@@ -34,6 +41,31 @@ const getInfoUpdateMP = async id => { //Acualiza solo el nombre y precio al publ
     console.log(materiaPrima);
 
 };
+const getRegisterCompra = () => {  //Obtiene todos los registros que se tienen de las materias primas (nombe y precio)
+    $.ajax({
+        type: 'GET',
+        headers: { "Accept": "application/json" },
+        url: 'http://localhost:4000/materiaP/registros'
+    }).done(res => {
+        console.log(res.listMateria);
+
+        let listMateria = res.listMateria;
+        let table = $("#registrosCompra");
+        // let stock = 0;
+        
+        for (let i = 0; i < listMateria.length; i++) {
+            table.append(
+                "<tr>" +
+                "<td>" + (i+1) + "</td>" +
+                "<td>" + listMateria[i].dateCompra + "</td>" +
+                "<td>" + listMateria[i].nameM + "</td>" +
+                "<td>" + listMateria[i].nameProveedor+ "</td>" +
+                "<td>" + '<button onclick="getInfoMP(' + listMateria[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#addCompraDetails"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
+               "</tr>")
+        }
+    });
+};
+getRegisterCompra();
 
 const getMateriaPrima = () => {  //Obtiene todos los registros que se tienen de las materias primas (nombe y precio)
     $.ajax({
@@ -60,22 +92,40 @@ const getMateriaPrima = () => {  //Obtiene todos los registros que se tienen de 
                 "<td>" + listMateria[i].pricePublic+ "</td>" +
                 "<td>" + '<button onclick="getInfoMP(' + listMateria[i].id + ');" type="button" class="btn btn-success text-dark" data-bs-toggle="modal" data-bs-target="#addCompra"> <i class="fa fa-folder-plus" aria-hidden="true"></i></button> </td>' +
                 "<td>" + '<button onclick="getInfoUpdateMP(' + listMateria[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#modify"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
-                "<td>" + '<button onclick="getIdProduct(' + listMateria[i].id + ');" type="button" class="btn btn-info text-dark" data-bs-toggle="modal" data-bs-target="#deleteProduct"><i class="fa fa-list" aria-hidden="true"></i></button> </td>' +
+                "<td>" + '<a href="historyCompra.html" class="btn btn-info" role="button" ><i class="fa fa-list" aria-hidden="true"></i></a> </td>' +
                 "</tr>")
         }
     });
 };
 getMateriaPrima();
 
-function registerMateriaPrima (){  //Solo va a registrar el nombre y precio
+function registerMateriaPrima (){
     event.preventDefault();
-    const swalWithBootstrapButtons = Swal.mixin({
+    const swalWithBootstrapButtons = Swal.mixin({ //Solo va a registrar el nombre y precio
         customClass: {
             confirmButton: 'btn btn-success',
             cancelButton: 'btn btn-danger'
         },
         buttonsStyling: false
     })
+    console.log("si entra para el llenado")
+    let nameM = document.getElementById('nameMRe').value;
+    let pricePublic = document.getElementById('pricePublicRe').value;
+        
+
+if (nameM == "") {
+    Swal.fire({
+        title: "Completa el campo NOMBRE",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+} else if (pricePublic == ""){
+    Swal.fire({
+        title: "Completa el campo PRECIO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else{
     swalWithBootstrapButtons.fire({
         title: 'Estás seguro de realizar el registro?',
         text: "Te sugerimos que revises la información antes de registrar",
@@ -85,53 +135,45 @@ function registerMateriaPrima (){  //Solo va a registrar el nombre y precio
         cancelButtonText: 'Cancelar',
         reverseButtons: true
     }).then ((result) => {
-    if (result.isConfirmed) { //value
-        //aquí estaria el codigo del registro
-        console.log("si entra para el llenado")
-        let nameM = document.getElementById('nameMRe').value;
-        let pricePublic = document.getElementById('pricePublicRe').value;
-        console.log(result);
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:4000/materiaP/create',
-        data: { nameM, pricePublic}
-    }).done(function (res) {
-        console.log(res);
-        console.log("Si registra")
-    });
-        swalWithBootstrapButtons.fire(
-            'Registro exitoso',
-            'Se ha registrado el producto exitosamente',
-            'success'
-        )
-        let formulario = document.getElementById('materiaPrimaN');
-        formulario.reset();
-        $('#addMateria'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
-        setTimeout(function() {
-            let refresh = document.getElementById('materiaPrimaN');
-        refresh= location.reload();
-            location.reload(true);
-          }, 3000);
-        
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
+        if(result.isConfirmed){
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:4000/materiaP/create',
+                data: { nameM, pricePublic}
+                }).done(res => {
+                console.log(res)
+                console.log("Si registra")
+                if (res.status === 200) {
+                    swalWithBootstrapButtons.fire(
+                        'Registro exitoso',
+                        'Se ha registrado al cliente exitosamente',
+                        'success'
+                    )
+                    let formulario = document.getElementById('materiaPrimaN');
+                    formulario.reset();
+                    $('#addMateria'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
+                    setTimeout(function() {
+                        let refresh = document.getElementById('materiaPrimaN');
+                         refresh= location.reload();
+                        location.reload(true);
+                    }, 3000);
+                } else {
+                    Swal.fire({
+                        title: "Hubo un problema al registrar",
+                        confirmButtonText: "Aceptar",
+                        icon: "error",
+                    });
+                }
+            });
+        }{
             swalWithBootstrapButtons.fire(
-            'Acción cancelada',
-            'No se ha realizado el registro',
-            'error'
-            )
-            }
-        }).catch((error)=>{
-            swalWithBootstrapButtons.fire(
-                '¡Error al registrar!',
-                'Ha ocurrido un error al registrar el producto',
+                'Acción cancelada',
+                'No se ha realizado el registro',
                 'error'
-              )
-              console.log(error);
-          })
-};
+            )
+        }
+    })
+}};
 
 // REGISTRO DE COMPRA 
 function registerCompra (){  //Va a registrar la compra de la materia prima seleccionada
@@ -202,70 +244,144 @@ function registerCompra (){  //Va a registrar la compra de la materia prima sele
           })        
 };
 
-
-function updateNamePrice(){
+function updateNamePrice (){
     event.preventDefault();
-    const swalWithBootstrapButtons = Swal.mixin({
+    const swalWithBootstrapButtons = Swal.mixin({ //Solo va a registrar el nombre y precio
         customClass: {
             confirmButton: 'btn btn-success',
             cancelButton: 'btn btn-danger'
         },
         buttonsStyling: false
     })
+    console.log(id);
+    console.log("Si entra para hacer los cambios");
+    var id = document.getElementById('id_updateNP').value;
+    let nameM = document.getElementById('nameM_up').value;
+    let pricePublic = document.getElementById('pricePublic_up').value;
+    console.log(id);
+if (nameM == "") {
+    Swal.fire({
+        title: "Completa el campo NOMBRE",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+} else if (pricePublic == ""){
+    Swal.fire({
+        title: "Completa el campo APELLIDO MATERNO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else{
     swalWithBootstrapButtons.fire({
-        title: 'Estás seguro de realizar los cambios?',
-        text: "Te sugerimos que revises la información antes de guadar",
+        title: 'Estás seguro de realizar el registro?',
+        text: "Te sugerimos que revises la información antes de registrar",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Confirmar',
         cancelButtonText: 'Cancelar',
         reverseButtons: true
-    }).then((result) => {
-    if (result.value) { //value
-        //aquí estaria el codigo del registro
-        console.log(id);
-        console.log("Si entra para hacer los cambios");
-        var id = document.getElementById('id_updateNP').value;
-        let nameM = document.getElementById('nameM_up').value;
-        let pricePublic = document.getElementById('pricePublic_up').value;
-        console.log(id);
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:4000/materiaP/update/' + id,
-        data: { nameM, pricePublic}
-    }).done(function (res) {
-        console.log(res);
-    });
-        swalWithBootstrapButtons.fire(
-            'Modificación exitosa',
-            'Se ha modificado al producto exitosamente',
-            'success'
-        )
-        $('#modify'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
-        setTimeout(function() {
-        let refresh = document.getElementById('materiaPrimaTable');
-        refresh= location.reload();
-            location.reload(true);
-          }, 2000);
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
+    }).then ((result) => {
+        if(result.isConfirmed){
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:4000/materiaP/update/' + id,
+                data: { nameM, pricePublic}
+                }).done(res => {
+                console.log(res)
+                console.log("Si registra")
+                if (res.status === 200) {
+                    swalWithBootstrapButtons.fire(
+                        'Registro exitoso',
+                        'Se ha modificado la materia prima exitosamente',
+                        'success'
+                    )
+                    $('#modify'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
+                    setTimeout(function() {
+                        let refresh = document.getElementById('materiaPrimaTable');
+                        refresh= location.reload();
+                        location.reload(true);
+                    }, 2000);
+                } else {
+                    Swal.fire({
+                        title: "Hubo un problema al modificara",
+                        confirmButtonText: "Aceptar",
+                        icon: "error",
+                    });
+                }
+            });
+        }{
             swalWithBootstrapButtons.fire(
-            'Acción cancelada',
-            'No se ha realizado la modificación',
-            'error'
-            )
-            }
-        }).catch((error)=>{
-            swalWithBootstrapButtons.fire(
-                '¡Error al modificar!',
-                'Ha ocurrido un error al modificar el producto',
+                'Acción cancelada',
+                'No se ha realizado el registro',
                 'error'
-              )
-              console.log(error)
-          })
-};
+            )
+        }
+    })
+}};
+
+// function updateNamePrice(){
+//     event.preventDefault();
+//     const swalWithBootstrapButtons = Swal.mixin({
+//         customClass: {
+//             confirmButton: 'btn btn-success',
+//             cancelButton: 'btn btn-danger'
+//         },
+//         buttonsStyling: false
+//     })
+//     swalWithBootstrapButtons.fire({
+//         title: 'Estás seguro de realizar los cambios?',
+//         text: "Te sugerimos que revises la información antes de guadar",
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonText: 'Confirmar',
+//         cancelButtonText: 'Cancelar',
+//         reverseButtons: true
+//     }).then((result) => {
+//     if (result.value) { //value
+//         //aquí estaria el codigo del registro
+//         console.log(id);
+//         console.log("Si entra para hacer los cambios");
+//         var id = document.getElementById('id_updateNP').value;
+//         let nameM = document.getElementById('nameM_up').value;
+//         let pricePublic = document.getElementById('pricePublic_up').value;
+//         console.log(id);
+//     $.ajax({
+//         type: 'POST',
+//         url: 'http://localhost:4000/materiaP/update/' + id,
+//         data: { nameM, pricePublic}
+//     }).done(function (res) {
+//         console.log(res);
+//     });
+//         swalWithBootstrapButtons.fire(
+//             'Modificación exitosa',
+//             'Se ha modificado al producto exitosamente',
+//             'success'
+//         )
+//         $('#modify'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
+//         setTimeout(function() {
+//         let refresh = document.getElementById('materiaPrimaTable');
+//         refresh= location.reload();
+//             location.reload(true);
+//           }, 2000);
+//         } else if (
+//             /* Read more about handling dismissals below */
+//             result.dismiss === Swal.DismissReason.cancel
+//         ) {
+//             swalWithBootstrapButtons.fire(
+//             'Acción cancelada',
+//             'No se ha realizado la modificación',
+//             'error'
+//             )
+//             }
+//         }).catch((error)=>{
+//             swalWithBootstrapButtons.fire(
+//                 '¡Error al modificar!',
+//                 'Ha ocurrido un error al modificar el producto',
+//                 'error'
+//               )
+//               console.log(error)
+//           })
+// };
 
 function doSearchMateriaPrima()
     {

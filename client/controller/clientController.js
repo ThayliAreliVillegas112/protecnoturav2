@@ -100,81 +100,6 @@ const getClient = () => {
     });
 };
 getClient();
-// function registerClient (){
-//     event.preventDefault();
-//     const swalWithBootstrapButtons = Swal.mixin({
-//         customClass: {
-//             confirmButton: 'btn btn-success',
-//             cancelButton: 'btn btn-danger'
-//         },
-//         buttonsStyling: false
-//     })
-          
-//     swalWithBootstrapButtons.fire({
-//         title: 'Estás seguro de realizar el registro?',
-//         text: "Te sugerimos que revises la información antes de registrar",
-//         icon: 'warning',
-//         showCancelButton: true,
-//         confirmButtonText: 'Confirmar',
-//         cancelButtonText: 'Cancelar',
-//         reverseButtons: true
-//     }).then ((result) => {
-//     if (result.isConfirmed) { //value
-//         //aquí estaria el codigo del registro
-//         let name = document.getElementById('nameRe').value;
-//         let surname = document.getElementById('surnameRe').value;
-//         let lastname = document.getElementById('lastnameRe').value;
-//         var age = document.getElementById('ageRe').value;
-//         let address = document.getElementById('addressRe').value
-//         let phone = document.getElementById('phoneRe').value;
-//         let extension = document.getElementById('extensionRe').value;
-//         let email = document.getElementById('emailRe').value;
-//         let company = document.getElementById('companyRe').value;
-//         let facebook = document.getElementById('faceRe').value;
-//         let tiktok = document.getElementById('tiktokRe').value;
-//         let instagram = document.getElementById('instagramRe').value;
-//         let photo = document.getElementById('photoRe').value;
-//         // let image = document.getElementById('imagenArreglo').files[0];
-  
-//         console.log(photo);
-//         console.log(result);
-//         console.log("antes alert");
-        
-//         console.log("despues");
-//     $.ajax({
-//         type: 'POST',
-//         url: 'http://localhost:4000/client/create',
-//         data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo }
-//     }).done(function (res) {
-//         console.log(res);
-        
-//     });
-//         swalWithBootstrapButtons.fire(
-//             'Registro exitoso',
-//             'Se ha registrado al cliente exitosamente',
-//             'success'
-//         )
-//         let formulario = document.getElementById('formu');
-//         formulario.reset();
-            
-//         } else if (
-//             /* Read more about handling dismissals below */
-//             result.dismiss === Swal.DismissReason.cancel
-//         ) {
-//             swalWithBootstrapButtons.fire(
-//             'Acción cancelada',
-//             'No se ha realizado el registro',
-//             'error'
-//             )
-//             }
-//         }).catch((error)=>{
-//             swalWithBootstrapButtons.fire(
-//                 '¡Error al registrar!',
-//                 'Ha ocurrido un error al registrar al cliente',
-//                 'error'
-//               )
-//           })
-// };
 
 function registerClient (){
     event.preventDefault();
@@ -280,10 +205,9 @@ if (name == "") {
             )
         }
     })
-}
-    
-};
-function updateClient(){
+}};
+
+function updateClient (){
     event.preventDefault();
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -292,74 +216,108 @@ function updateClient(){
         },
         buttonsStyling: false
     })
-          
+    console.log(id);
+    console.log("Si entra para hacer los cambios");
+    var id = document.getElementById('id_updateC').value;
+    let name = document.getElementById('name_up').value;
+    let surname = document.getElementById('surname_up').value;
+    let lastname = document.getElementById('lastname_up').value;
+    let age = document.getElementById('age_up').value;
+    let address = document.getElementById('address_up').value;
+    let phone = document.getElementById('phone_up').value;
+    let extension = document.getElementById('extension_up').value;
+    let email = document.getElementById('email_up').value;
+    let company = document.getElementById('company_up').value;
+    let facebook = document.getElementById('face_up').value;
+    let tiktok = document.getElementById('tiktok_up').value;
+    let instagram = document.getElementById('instagram_up').value;
+    let photo = document.getElementById('photo_up').value;
+
+    console.log(id);
+
+if (name == "") {
+    Swal.fire({
+        title: "Completa el campo NOMBRE",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+} else if (surname == ""){
+    Swal.fire({
+        title: "Completa el campo APELLIDO MATERNO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(lastname == ""){
+    Swal.fire({
+        title: "Completa el campo APELLIDO PATERNO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(address == ""){
+    Swal.fire({
+        title: "Completa el campo DIRECCIÓN",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(phone == ""){
+    Swal.fire({
+        title: "Completa el campo TELÉFONO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(email == ""){
+    Swal.fire({
+        title: "Completa el campo CORREO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else{
     swalWithBootstrapButtons.fire({
         title: 'Estás seguro de realizar los cambios?',
-        text: "Te sugerimos que revises la información antes de guadar",
+        text: "Te sugerimos que revises la información antes de registrar",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Confirmar',
         cancelButtonText: 'Cancelar',
         reverseButtons: true
-    }).then((result) => {
-    if (result.value) { //value
-        //aquí estaria el codigo del registro
-        console.log(id);
-        console.log("Si entra para hacer los cambios");
-        var id = document.getElementById('id_updateC').value;
-        let name = document.getElementById('name_up').value;
-        let surname = document.getElementById('surname_up').value;
-        let lastname = document.getElementById('lastname_up').value;
-        let age = document.getElementById('age_up').value;
-        let address = document.getElementById('address_up').value;
-        let phone = document.getElementById('phone_up').value;
-        let extension = document.getElementById('extension_up').value;
-        let email = document.getElementById('email_up').value;
-        let company = document.getElementById('company_up').value;
-        let facebook = document.getElementById('face_up').value;
-        let tiktok = document.getElementById('tiktok_up').value;
-        let instagram = document.getElementById('instagram_up').value;
-        let photo = document.getElementById('photo_up').value;
-
-        console.log(id);
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:4000/client/update/' + id,
-        data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo }
-    }).done(function (res) {
-        console.log(res);
-       
-    });
-        swalWithBootstrapButtons.fire(
-            'Modificación exitosa',
-            'Se ha modificado al cliente exitosamente',
-            'success'
-        )
-        $('#update'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
-        setTimeout(function() {
-            let refresh = document.getElementById('tabla');
-        refresh= location.reload();
-            location.reload(true);
-          }, 2000);
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
+    }).then ((result) => {
+        if(result.isConfirmed){
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:4000/client/update/' + id,
+                data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo }
+            }).done(res => {
+                console.log(res)
+                if (res.status === 200) {
+                    swalWithBootstrapButtons.fire(
+                        'Modificación exitosa',
+                        'Se ha modificado al cliente exitosamente',
+                        'success'
+                    )
+                    $('#update'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
+                    setTimeout(function() {
+                        let refresh = document.getElementById('tabla');
+                        refresh= location.reload();
+                         location.reload(true);
+                    }, 2000);
+                } else {
+                    Swal.fire({
+                        title: "Hubo un problema al modificar",
+                        confirmButtonText: "Aceptar",
+                        icon: "error",
+                    });
+                }
+            });
+        }{
             swalWithBootstrapButtons.fire(
-            'Acción cancelada',
-            'No se ha realizado la modificación',
-            'error'
-            )
-            }
-        }).catch((error)=>{
-            swalWithBootstrapButtons.fire(
-                '¡Error al modificar!',
-                'Ha ocurrido un error al modificar al cliente',
+                'Acción cancelada',
+                'No se ha realizado la modificación',
                 'error'
-              )
-              console.log(error)
-          })
-};
+            )
+        }
+    })
+}};
+
 
 function doSearch()
     {
