@@ -27,8 +27,16 @@ const getInfoMP = async id => { //Este sirve para obtener la información del no
     document.getElementById('priceClient').value = materiaPrima.listMateria[0].pricePublic;
     console.log(materiaPrima);
     console.log("si esta entrando");
+};
 
-
+const getInfoRegisterCompra = async id => { //Este sirve para obtener la información del nombre y precio para mostrarlo ene el modal para registrar una compra
+    var registros = await getMpRegisterById(id);
+    console.log(registros);
+    document.getElementById('id_nombreMP').value = id;
+    document.getElementById('nameM').value = materiaPrima.listMateria[0].nameM;
+    document.getElementById('priceClient').value = materiaPrima.listMateria[0].pricePublic;
+    console.log(materiaPrima);
+    console.log("si esta entrando");
 };
 
 const getInfoUpdateMP = async id => { //Acualiza solo el nombre y precio al publico de la materia prima
@@ -60,7 +68,7 @@ const getRegisterCompra = () => {  //Obtiene todos los registros que se tienen d
                 "<td>" + listMateria[i].dateCompra + "</td>" +
                 "<td>" + listMateria[i].nameM + "</td>" +
                 "<td>" + listMateria[i].nameProveedor+ "</td>" +
-                "<td>" + '<button onclick="getInfoMP(' + listMateria[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#addCompraDetails"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
+                "<td>" + '<button onclick="getInfoRegisterCompra(' + listMateria[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#addCompraDetails"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
                "</tr>")
         }
     });
