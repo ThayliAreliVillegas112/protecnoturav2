@@ -4,7 +4,7 @@ const router =  express.Router();
 const pool = require('../database.js');
 
 router.get('/segC', async (req, res) => {
-    let listSegClient = await pool.query('SELECT * FROM seguimientoCliente');
+    let listSegClient = await pool.query('SELECT * FROM seguimientoCliente s inner JOIN client c on s.client_id = c.id');
     
     res.json({
         status: 200,
@@ -38,11 +38,11 @@ router.get('/:id', async (req, res) =>{
 });
 
 router.post('/create', async (req, res)=> {
-    const { representante, date , identificador, asunto, acuerdo, client_id } = req.body;
+    const { representante, date , asunto, acuerdo, client_id } = req.body;
     var dateCreated = new Date().toISOString();
     //var dateCreated2 = new Date().toLocaleString();
     const segClient ={
-        representante, date: dateCreated, identificador, asunto, acuerdo, client_id
+        representante, date: dateCreated, asunto, acuerdo, client_id
     };
 
     await pool.query('INSERT INTO seguimientoCliente set ?', [segClient]);

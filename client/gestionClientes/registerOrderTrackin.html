@@ -83,21 +83,21 @@
                                         placeholder="Ana Olivera Delgado" title="Debe colocar la fecha en que está haciendo el registro">
                                 </div>
                             </div>
-                            <div class="col-md-4 margen1">
+                            <!-- <div class="col-md-4 margen1">
                                 <div class="form-group">
                                     <label for="disabledTextInput" class="form-label">Identificador</label>
                                     <textarea class="form-control"
                                     title="Debe poner alguna palabra clave para identificar el registro" id="identi"></textarea>
                                 </div>
-                            </div>
+                            </div> -->
     
-                            <div class="col-md-4 margen1">
+                            <div class="col-md-6 margen1">
                                 <div class="form-group">
                                     <label for="disabledTextInput" class="form-label">Asunto tratado</label>
                                     <textarea class="form-control" id="asunto"></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-4 margen1">
+                            <div class="col-md-6 margen1">
                                 <div class="form-group">
                                     <label for="disabledTextInput" class="form-label">Acuerdo con el cliente</label>
                                     <textarea class="form-control" id="acuerdo"></textarea>
@@ -105,7 +105,7 @@
                             </div>                           
                         </div>
                         <div class="text-end margen2">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->
                             <button type="submit" class="btn btn-success">Registrar</button>
                         </div>
                         
@@ -113,52 +113,6 @@
                 </div>
             </article>
         </section>
-
-        <!-- <script>
-            function clientSeguimientoRegister(){
-                event.preventDefault();
-                  const swalWithBootstrapButtons = Swal.mixin({
-                  customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                  },
-                  buttonsStyling: false
-                })
-                swalWithBootstrapButtons.fire({
-                title: '¿Estás seguro de realizar el registro?',
-                text: "Te sugerimos que revises la información antes de registrar, ya que no se permiten modificaciones posteriores",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Confirmar',
-                cancelButtonText: 'Cancelar',
-                reverseButtons: true
-              }).then((result) => {
-                if (result.isConfirmed) { //value
-                  //aquí estaria el codigo del registro
-                  swalWithBootstrapButtons.fire(
-                    'Registro exitoso!',
-                    'Se ha registrado al el seguimiento correctamente',
-                    'success'
-                  )
-                } else if (
-                  /* Read more about handling dismissals below */
-                  result.dismiss === Swal.DismissReason.cancel
-                ) {
-                  swalWithBootstrapButtons.fire(
-                    'Acción cancelada',
-                    'No se ha realizado el registro',
-                    'error'
-                  )
-                }
-              }).catch((error)=>{
-                swalWithBootstrapButtons.fire(
-                    '¡Error al registrar!',
-                    'Ha ocurrido un error al registrar el seguimiento del cliente',
-                    'error'
-                  )
-              })
-            }
-        </script> -->
 
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>

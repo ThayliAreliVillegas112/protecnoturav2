@@ -7,19 +7,20 @@ const getSegClientById = async id => {
 };
 
 
-const getSegInfoClient = async id => {
-    var seguimiento = await getSegClientById(id);
-    console.log(seguimiento);
+// const getSegInfoClient = async id => {
+//     var seguimiento = await getSegClientById(id);
+//     console.log(seguimiento);
 
-    var dateCreated = new Date(seguimiento.listSegClient[0].date).toLocaleDateString();
-    
-    document.getElementById('name').value = seguimiento.listSegClient[0].representante;
-    document.getElementById('dateRegistro').value = dateCreated;
-    document.getElementById('asuntoTratado').value = seguimiento.listSegClient[0].asunto;
-    document.getElementById('acuerdoCliente').value = seguimiento.listSegClient[0].acuerdo;
+//     var dateCreated = new Date(seguimiento.listSegClient[0]).toLocaleDateString();
+//     document.getElementById('id_s').value = id;
+//     document.getElementById('name').value = seguimiento.listSegClient[0].representante;
+//     document.getElementById('dateRegistro').value = dateCreated;
+//     document.getElementById('nameP').value = seguimiento.listSegClient[0].name;
+//     document.getElementById('asuntoTratado').value = seguimiento.listSegClient[0].asunto;
+//     document.getElementById('acuerdoCliente').value = seguimiento.listSegClient[0].acuerdo;
 
 
-};
+// };
 
 const getSegClient = () => {
     $.ajax({
@@ -38,14 +39,15 @@ const getSegClient = () => {
                 "<tr>" +
                 "<td>" + (i+1) + "</td>" +
                 "<td>" + dateRegister + "</td>" +
-                "<td>" + listSegClient[i].identificador + "</td>" +
-                // "<td>" + listSegClient[i].client_id?.name + "</td>" +
-                "<td>" + '<button onclick="getSegInfoClient(' + listSegClient[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsSeguimiento"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
+                "<td>" + listSegClient[i].name + listSegClient[i].surname+ listSegClient[i].lastname+ "</td>" +
+                "<td>" + listSegClient[i].representante + "</td>" +
+                "<td>" + listSegClient[i].asunto + "</td>" +
+                "<td>" + listSegClient[i].acuerdo + "</td>" +
+                // "<td>" + '<button onclick="getSegInfoClient(' + listSegClient[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsSeguimiento"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
                 "</tr>")
         }
     });
 };
-
 
 function registerSegClient (){
     event.preventDefault();
@@ -56,9 +58,49 @@ function registerSegClient (){
         },
         buttonsStyling: false
     })
-          
+    let representante = document.getElementById('repre').value;
+    let date = document.getElementById('date').value;
+    // let identificador = document.getElementById('identi').value;
+    var asunto = document.getElementById('asunto').value;
+    let acuerdo = document.getElementById('acuerdo').value
+    let client_id = document.getElementById('mySelect').value;
+
+    console.log("si llena el seguimiento");
+
+
+if (client_id == "") {
+    Swal.fire({
+        title: "Completa el campo CLIENTE",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+} else if (representante == ""){
+    Swal.fire({
+        title: "Completa el campo REPRESENTANTE",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(date == ""){
+    Swal.fire({
+        title: "Completa el campo FECHA",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(asunto == ""){
+    Swal.fire({
+        title: "Completa el campo ASUNTO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(acuerdo == ""){
+    Swal.fire({
+        title: "Completa el campo ACUERDO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else{
     swalWithBootstrapButtons.fire({
-        title: '¿Estás seguro de realizar el registro?',
+        title: 'Estás seguro de realizar el registro?',
         text: "Te sugerimos que revises la información antes de registrar",
         icon: 'warning',
         showCancelButton: true,
@@ -66,52 +108,39 @@ function registerSegClient (){
         cancelButtonText: 'Cancelar',
         reverseButtons: true
     }).then ((result) => {
-    if (result.isConfirmed) { //value
-        //aquí estaria el codigo del registro
-        let representante = document.getElementById('repre').value;
-        let date = document.getElementById('date').value;
-        let identificador = document.getElementById('identi').value;
-        var asunto = document.getElementById('asunto').value;
-        let acuerdo = document.getElementById('acuerdo').value
-        let client_id = document.getElementById('mySelect').value;
-
-        
-        console.log("si llena todoo");
-        console.log(result);
-        
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:4000/segClient/create',
-        data: { representante, date, identificador, asunto, acuerdo, client_id }
-    }).done(function (res) {
-        console.log(res);
-    });
-        swalWithBootstrapButtons.fire(
-            'Registro exitoso',
-            'Se ha registrado el seguimiento exitosamente',
-            'success'
-        )
-        let formulario = document.getElementById('formu2');
-        formulario.reset();
-            
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
+        if(result.isConfirmed){
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:4000/segClient/create',
+                data: { representante, date, asunto, acuerdo, client_id }
+            }).done(res => {
+                console.log(res)
+                if (res.status === 200) {
+                    swalWithBootstrapButtons.fire(
+                        'Registro exitoso',
+                        'Se ha registrado el seguimiento al cliente exitosamente',
+                        'success'
+                    )
+                    let formulario = document.getElementById('formu2'); 
+                    formulario.reset()
+                } else {
+                    Swal.fire({
+                        title: "Hubo un problema al registrar",
+                        confirmButtonText: "Aceptar",
+                        icon: "error",
+                    });
+                }
+            });
+        }{
             swalWithBootstrapButtons.fire(
-            'Acción cancelada',
-            'No se ha realizado el registro del seguimiento',
-            'error'
-            )
-            }
-        }).catch((error)=>{
-            swalWithBootstrapButtons.fire(
-                '¡Error al registrar!',
-                'Ha ocurrido un error al registrar este seguimiento',
+                'Acción cancelada',
+                'No se ha realizado el registro',
                 'error'
-              )
-            // console.log(error);
-          })
+            )
+        }
+    })
+}
+    
 };
 
 
