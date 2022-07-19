@@ -59,6 +59,15 @@
             <div class="col-10">
               <table class="table table-hover" id="registrosCompra" >
                   <thead>
+                    <div class="input-group">
+                      <div class="form-outline">
+                        <input id="search-focusMateriaPrima" type="search" class="form-control" onkeyup="doSearchRegisterCompra()" />
+                        <label class="form-label" for="form1">Buscar</label>
+                      </div>
+                      <button type="button" class="btn btn-primary buscar">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Fecha</th>
@@ -83,59 +92,60 @@
                 </div>
                 <div class="modal-body">
                   <form>
-                    <div class="row">            
+                    <div class="row">
+                      <input type="hidden" id="id_historyC">            
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="disabledTextInput" class="form-label">Lote</label>
-                          <input type="text" id="disabledTextInput" class="form-control" disabled>
+                          <input type="text" id="lote" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="disabledTextInput" class="form-label">Cantidad</label>
-                          <input type="number" id="disabledTextInput" class="form-control" disabled>
+                          <input type="number" id="cantidad" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="disabledTextInput" class="form-label">Nombre del proveedor</label>
-                          <input type="text" id="disabledTextInput" class="form-control" disabled>
+                          <input type="text" id="namePro" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="disabledTextInput" class="form-label">Clave del productor</label>
-                          <input type="text" id="disabledTextInput" class="form-control" disabled>
+                          <input type="text" id="clavePro" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="disabledTextInput" class="form-label">Fecha de compra</label>
-                          <input type="date" id="disabledTextInput" class="form-control" disabled>
+                          <input type="date" id="dateCompra" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="disabledTextInput" class="form-label">No. Costales</label>
-                          <input type="number" id="disabledTextInput" class="form-control" disabled>
+                          <input type="number" id="costales" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="disabledTextInput" class="form-label">Clave de costales</label>
-                          <input type="text" id="disabledTextInput" class="form-control" disabled>
+                          <input type="text" id="claveCostales" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="disabledTextInput" class="form-label">Quíen entregó</label>
-                          <input type="text" id="disabledTextInsput" class="form-control" disabled >
+                          <input type="text" id="quienE" class="form-control" disabled >
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="disabledTextInput" class="form-label">Quíen recibió</label>
-                          <input type="text" id="disabledTextInput" class="form-control" disabled>
+                          <input type="text" id="quienR" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="text-end">

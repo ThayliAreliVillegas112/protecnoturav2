@@ -39,7 +39,7 @@ const getSegClient = () => {
                 "<tr>" +
                 "<td>" + (i+1) + "</td>" +
                 "<td>" + dateRegister + "</td>" +
-                "<td>" + listSegClient[i].name + listSegClient[i].surname+ listSegClient[i].lastname+ "</td>" +
+                "<td>" + listSegClient[i].name + " "+ listSegClient[i].surname+ " "+ listSegClient[i].lastname+ "</td>" +
                 "<td>" + listSegClient[i].representante + "</td>" +
                 "<td>" + listSegClient[i].asunto + "</td>" +
                 "<td>" + listSegClient[i].acuerdo + "</td>" +

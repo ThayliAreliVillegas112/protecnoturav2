@@ -48,6 +48,16 @@ router.get('/:id', async (req, res) =>{
     });
 });
 
+router.get('/registerC/:id', async (req, res) =>{
+    const { id } = req.params;
+    let listMateria = await pool.query('SELECT * FROM registerCompra WHERE id = ?', [id]);
+    res.json({
+        status: 200,
+        message: "Se ha encontrado el registro",
+        listMateria: listMateria
+    });
+});
+
 router.post('/create', async (req, res)=> {   //Primero solo registra el nombre y precio de la materia prima para tenerlo en la tabla
     const { nameM, pricePublic } = req.body;
     // var dateCompraC = new Date().toISOString();
