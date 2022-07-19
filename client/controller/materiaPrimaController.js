@@ -112,7 +112,7 @@ const getMateriaPrima = () => {  //Obtiene todos los registros que se tienen de 
                 "<td>" + listMateria[i].pricePublic+ "</td>" +
                 "<td>" + '<button onclick="getInfoMP(' + listMateria[i].id + ');" type="button" class="btn btn-success text-dark" data-bs-toggle="modal" data-bs-target="#addCompra"> <i class="fa fa-folder-plus" aria-hidden="true"></i></button> </td>' +
                 "<td>" + '<button onclick="getInfoUpdateMP(' + listMateria[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#modify"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
-                "<td>" + '<a href="historyCompra.html" class="btn btn-info" role="button" ><i class="fa fa-list" aria-hidden="true"></i></a> </td>' +
+                // "<td>" + '<a href="historyCompra.html" class="btn btn-info" role="button" ><i class="fa fa-list" aria-hidden="true"></i></a> </td>' +
                 "</tr>")
         }
     });

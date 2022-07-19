@@ -25,7 +25,7 @@ app.use('/client',require('./routes/client.js'));
 app.use('/segClient',require('./routes/seguimientoCliente.js'));
 app.use('/product',require('./routes/productos.js'));
 app.use('/materiaP',require('./routes/materiaPrima.js'));
-app.use('/harinas',require('./routes/harinas.js'));
+app.use('/harina',require('./routes/harina.js'));
 // app.use('/pelicula',require('./routes/pelicula.js'));
 
 //starting server
