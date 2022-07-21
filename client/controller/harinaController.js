@@ -9,7 +9,7 @@ const getInfoUpdateHarina = async id => {
     let harina = await getHarinaById(id);
 
     document.getElementById('id_updateHarina').value = id;
-    document.getElementById('nameHarina_up').value = client.listClient[0].name;
+    document.getElementById('nameHarina_up').value = harina.listHarina[0].nameH;
     console.log(harina);
 };
 
@@ -33,8 +33,8 @@ const getHarina = () => {
                 "<td>" + listHarina[i].nameH +"</td>" +
                 "<td>" + stock +"</td>" +
                 "<td>" + '<button onclick="getInfoClient(' + listHarina[i].id + ');" type="button" class="btn btn-success text-dark iconMargin" data-bs-toggle="modal" data-bs-target="#addHarinaRegister"> <i class="fa fa-folder-plus infoBtn" aria-hidden="true"></i></button> </td>' +
-                "<td>" + '<button onclick="getInfoClient(' + listHarina[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#updateNameH"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +  
-                "<td>" + '<button onclick="getInfoUpdateClient(' + listHarina[i].id + ');" type="button" class="btn btn-warning text-dark iconMargin" data-bs-toggle="modal" data-bs-target="#update"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
+                "<td>" + '<button onclick="getInfoUpdateHarina(' + listHarina[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#updateNameH"> <i class="fa fa-pen infoBtn" aria-hidden="true"></i></button> </td>' +  
+                "<td>" + '<button onclick="getInfoUpdateHarina(' + listHarina[i].id + ');" type="button" class="btn btn-warning text-dark iconMargin" data-bs-toggle="modal" data-bs-target="#update"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
                 // "<td>" + '<a href="orderTracking.html" class="btn btn-info" role="button" ><i class="fa fa-list" aria-hidden="true"></i></a> </td>' +
                 "</tr>")
                 
@@ -44,7 +44,7 @@ const getHarina = () => {
 };
 getHarina();
 
-function registerClient (){
+function registerHarina (){
     event.preventDefault();
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -53,57 +53,10 @@ function registerClient (){
         },
         buttonsStyling: false
     })
-    let name = document.getElementById('nameRe').value;
-    let surname = document.getElementById('surnameRe').value;
-    let lastname = document.getElementById('lastnameRe').value;
-    var age = document.getElementById('ageRe').value;
-    let address = document.getElementById('addressRe').value
-    let phone = document.getElementById('phoneRe').value;
-    let extension = document.getElementById('extensionRe').value;
-    let email = document.getElementById('emailRe').value;
-    let company = document.getElementById('companyRe').value;
-    let facebook = document.getElementById('faceRe').value;
-    let tiktok = document.getElementById('tiktokRe').value;
-    let instagram = document.getElementById('instagramRe').value;
-    // let photo = document.getElementById('photoRe').value;
-    let photo1 = localStorage.getItem("photo");
-    let image = photo1;
-        console.log("mmmmmmmmmmm");
-        console.log(photo1);
-
-if (name == "") {
+    let nameH = document.getElementById('nameHarinaRe').value;
+if (nameH == "") {
     Swal.fire({
         title: "Completa el campo NOMBRE",
-        confirmButtonText: "Aceptar",
-        icon: "error",
-    })
-} else if (surname == ""){
-    Swal.fire({
-        title: "Completa el campo APELLIDO MATERNO",
-        confirmButtonText: "Aceptar",
-        icon: "error",
-    })
-}else if(lastname == ""){
-    Swal.fire({
-        title: "Completa el campo APELLIDO PATERNO",
-        confirmButtonText: "Aceptar",
-        icon: "error",
-    })
-}else if(address == ""){
-    Swal.fire({
-        title: "Completa el campo DIRECCIÓN",
-        confirmButtonText: "Aceptar",
-        icon: "error",
-    })
-}else if(phone == ""){
-    Swal.fire({
-        title: "Completa el campo TELÉFONO",
-        confirmButtonText: "Aceptar",
-        icon: "error",
-    })
-}else if(email == ""){
-    Swal.fire({
-        title: "Completa el campo CORREO",
         confirmButtonText: "Aceptar",
         icon: "error",
     })
@@ -120,18 +73,23 @@ if (name == "") {
         if(result.isConfirmed){
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:4000/client/create',
-                data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, image}
+                url: 'http://localhost:4000/harina/create',
+                data: { nameH}
             }).done(res => {
                 console.log(res)
                 if (res.status === 200) {
                     swalWithBootstrapButtons.fire(
                         'Registro exitoso',
-                        'Se ha registrado al cliente exitosamente',
+                        'Se ha registrado el nombre de la materia prima',
                         'success'
                     )
-                    let formulario = document.getElementById('formu'); 
-                    formulario.reset()
+                    // let formulario = document.getElementById('formu'); 
+                    // formulario.reset()
+                    setTimeout(function() {
+                        let refresh = document.getElementById('addHarina');
+                         refresh= location.reload();
+                        location.reload(true);
+                    }, 3000);
                 } else {
                     Swal.fire({
                         title: "Hubo un problema al registrar",
@@ -150,7 +108,7 @@ if (name == "") {
     })
 }};
 
-function updateClient (){
+function updateNameHarina (){
     event.preventDefault();
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -161,56 +119,13 @@ function updateClient (){
     })
     console.log(id);
     console.log("Si entra para hacer los cambios");
-    var id = document.getElementById('id_updateC').value;
-    let name = document.getElementById('name_up').value;
-    let surname = document.getElementById('surname_up').value;
-    let lastname = document.getElementById('lastname_up').value;
-    let age = document.getElementById('age_up').value;
-    let address = document.getElementById('address_up').value;
-    let phone = document.getElementById('phone_up').value;
-    let extension = document.getElementById('extension_up').value;
-    let email = document.getElementById('email_up').value;
-    let company = document.getElementById('company_up').value;
-    let facebook = document.getElementById('face_up').value;
-    let tiktok = document.getElementById('tiktok_up').value;
-    let instagram = document.getElementById('instagram_up').value;
-    let photo = document.getElementById('photo_up').value;
-
+    var id = document.getElementById('id_updateHarina').value;
+    let nameH = document.getElementById('nameHarina_up').value;
     console.log(id);
 
-if (name == "") {
+if (nameH == "") {
     Swal.fire({
         title: "Completa el campo NOMBRE",
-        confirmButtonText: "Aceptar",
-        icon: "error",
-    })
-} else if (surname == ""){
-    Swal.fire({
-        title: "Completa el campo APELLIDO MATERNO",
-        confirmButtonText: "Aceptar",
-        icon: "error",
-    })
-}else if(lastname == ""){
-    Swal.fire({
-        title: "Completa el campo APELLIDO PATERNO",
-        confirmButtonText: "Aceptar",
-        icon: "error",
-    })
-}else if(address == ""){
-    Swal.fire({
-        title: "Completa el campo DIRECCIÓN",
-        confirmButtonText: "Aceptar",
-        icon: "error",
-    })
-}else if(phone == ""){
-    Swal.fire({
-        title: "Completa el campo TELÉFONO",
-        confirmButtonText: "Aceptar",
-        icon: "error",
-    })
-}else if(email == ""){
-    Swal.fire({
-        title: "Completa el campo CORREO",
         confirmButtonText: "Aceptar",
         icon: "error",
     })
@@ -227,8 +142,8 @@ if (name == "") {
         if(result.isConfirmed){
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:4000/client/update/' + id,
-                data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo }
+                url: 'http://localhost:4000/harina/update/' + id,
+                data: {nameH}
             }).done(res => {
                 console.log(res)
                 if (res.status === 200) {
@@ -237,9 +152,9 @@ if (name == "") {
                         'Se ha modificado al cliente exitosamente',
                         'success'
                     )
-                    $('#update'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
+                    $('#updateNameH'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
                     setTimeout(function() {
-                        let refresh = document.getElementById('tabla');
+                        let refresh = document.getElementById('updateNameH');
                         refresh= location.reload();
                          location.reload(true);
                     }, 2000);

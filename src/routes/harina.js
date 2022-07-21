@@ -46,7 +46,7 @@ router.post('/update/:id', async (req, res)=>{
 
     const harina = { nameH };
 
-     await pool.query('UPDATE client SET ? WHERE id = ?', [client, id]);
+     await pool.query('UPDATE harina SET ? WHERE id = ?', [harina, id]);
         res.json({
             status: 200,
             message: "Se ha actualizado correctamente la información del cliente",

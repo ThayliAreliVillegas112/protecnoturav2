@@ -57,6 +57,15 @@
             <div class="col-10">
               <table class="table table-hover" id="harinas">
                   <thead>
+                    <div class="input-group">
+                      <div class="form-outline">
+                        <input id="search-focus" type="search" class="form-control" onkeyup="doSearch()" />
+                        <label class="form-label" for="form1">Buscar</label>
+                      </div>
+                      <button type="button" class="btn btn-primary buscar">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Nombre</th>
@@ -81,12 +90,12 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form onsubmit="return registerNameHarina()">
+              <form action="javascript:void(0);" onsubmit="return registerHarina();">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="disabledTextInput" class="form-label">Nombre</label>
-                            <input type="text" id="disabledTextInput" class="form-control" placeholder="Harina de amaranto" >
+                            <input type="text" id="nameHarinaRe" class="form-control" placeholder="Harina de amaranto" >
                         </div>
                     </div>                    
                 </div>
@@ -168,7 +177,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form action="javascript:void(0);" onsubmit="return updateHarina();">
+              <form action="javascript:void(0);" onsubmit="return updateNameHarina();">
                 <div class="row">
                   <input type="hidden" id="id_updateHarina">
                     <div class="col-md-6">
