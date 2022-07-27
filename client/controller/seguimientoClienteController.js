@@ -7,19 +7,12 @@ const getSegClientById = async id => {
 };
 
 
-// const getSegInfoClient = async id => {
-//     var seguimiento = await getSegClientById(id);
-//     console.log(seguimiento);
-
-//     var dateCreated = new Date(seguimiento.listSegClient[0]).toLocaleDateString();
-//     document.getElementById('id_s').value = id;
-//     document.getElementById('name').value = seguimiento.listSegClient[0].representante;
-//     document.getElementById('dateRegistro').value = dateCreated;
-//     document.getElementById('nameP').value = seguimiento.listSegClient[0].name;
-//     document.getElementById('asuntoTratado').value = seguimiento.listSegClient[0].asunto;
-//     document.getElementById('acuerdoCliente').value = seguimiento.listSegClient[0].acuerdo;
-
-
+// const getInfoAcuerdo = async id => {
+//     var acuerdo = await getSegClientById(id);
+//     console.log(acuerdo);
+  
+//     document.getElementById('acuerdoCliente').value = acuerdo.listSegClient[0].acuerdo;
+//     console.log(acuerdo);
 // };
 
 const getSegClient = () => {
@@ -43,7 +36,7 @@ const getSegClient = () => {
                 "<td>" + listSegClient[i].representante + "</td>" +
                 "<td>" + listSegClient[i].asunto + "</td>" +
                 "<td>" + listSegClient[i].acuerdo + "</td>" +
-                // "<td>" + '<button onclick="getSegInfoClient(' + listSegClient[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsSeguimiento"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
+                // "<td>" + '<button onclick="getInfoAcuerdo(' + listSegClient[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsSeguimiento"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
                 "</tr>")
         }
     });

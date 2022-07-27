@@ -38,11 +38,11 @@ router.get('/:id', async (req, res) =>{
 });
 
 router.post('/create', async (req, res)=> {
-    const { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo } = req.body;
+    const { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram } = req.body;
     // var dateCreated = new Date().toISOString();
     //var dateCreated2 = new Date().toLocaleString();
     const client ={
-        name, surname, lastname, age, address , phone, extension, email, company, facebook, tiktok, instagram, photo
+        name, surname, lastname, age, address , phone, extension, email, company, facebook, tiktok, instagram
     };
 
     await pool.query('INSERT INTO client set ?', [client]);
@@ -56,9 +56,9 @@ router.post('/create', async (req, res)=> {
 router.post('/update/:id', async (req, res)=>{
     const { id } = req.params;
     // var dateUpdate = new Date().toISOString();
-    const { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo } = req.body;
+    const { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram } = req.body;
 
-    const client = { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo };
+    const client = { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram };
 
      await pool.query('UPDATE client SET ? WHERE id = ?', [client, id]);
         res.json({

@@ -5,25 +5,25 @@ const getClientById = async id => {
     }).done(res => res);
 };
 
-const blobToBase64 = (blob) => {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = () => {
-            resolve(reader.result.split(',')[1]);
-        }
-    })
-}
+// const blobToBase64 = (blob) => {
+//     return new Promise((resolve, reject) => {
+//         const reader = new FileReader();
+//         reader.readAsDataURL(blob);
+//         reader.onloadend = () => {
+//             resolve(reader.result.split(',')[1]);
+//         }
+//     })
+// }
 
-function encodeImageFileAsURL(element) {
-    var file = element.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function() {
-      console.log('RESULT', reader.result)
-      localStorage.setItem("photo", reader.result);
-    }
-    reader.readAsDataURL(file);
-}
+// function encodeImageFileAsURL(element) {
+//     var file = element.files[0];
+//     var reader = new FileReader();
+//     reader.onloadend = function() {
+//       console.log('RESULT', reader.result)
+//       localStorage.setItem("photo", reader.result);
+//     }
+//     reader.readAsDataURL(file);
+// }
 // const getSeguimiento = async id =>{
 //   var seg = await getClientById(id);
 //   console.log(seg)
@@ -45,16 +45,13 @@ const getInfoClient = async id => {
     document.getElementById('face').value = client.listClient[0].facebook;
     document.getElementById('tiktok').value = client.listClient[0].tiktok;
     document.getElementById('instagram').value = client.listClient[0].instagram;
-    document.getElementById('photo').value = client.listClient[0].photo;
+    // document.getElementById('photo').value = client.listClient[0].photo;
     console.log(client);
     console.log("si esta entrando");
-
-
 };
 
 const getInfoUpdateClient = async id => {
     let client = await getClientById(id);
-
     document.getElementById('id_updateC').value = id;
     document.getElementById('name_up').value = client.listClient[0].name;
     document.getElementById('surname_up').value = client.listClient[0].surname;
@@ -68,7 +65,7 @@ const getInfoUpdateClient = async id => {
     document.getElementById('face_up').value = client.listClient[0].facebook;
     document.getElementById('tiktok_up').value = client.listClient[0].tiktok;
     document.getElementById('instagram_up').value = client.listClient[0].instagram;
-    document.getElementById('photo_up').value = client.listClient[0].photo;
+    // document.getElementById('photo_up').value = client.listClient[0].photo;
     console.log(client);
 
 };
@@ -123,10 +120,10 @@ function registerClient (){
     let tiktok = document.getElementById('tiktokRe').value;
     let instagram = document.getElementById('instagramRe').value;
     // let photo = document.getElementById('photoRe').value;
-    let photo1 = localStorage.getItem("photo");
-    let image = photo1;
-        console.log("mmmmmmmmmmm");
-        console.log(photo1);
+    // let photo1 = localStorage.getItem("photo");
+    // let image = photo1;
+    //     console.log("mmmmmmmmmmm");
+    //     console.log(photo1);
 
 if (name == "") {
     Swal.fire({
@@ -178,7 +175,7 @@ if (name == "") {
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:4000/client/create',
-                data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, image}
+                data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram}
             }).done(res => {
                 console.log(res)
                 if (res.status === 200) {
@@ -231,7 +228,7 @@ function updateClient (){
     let facebook = document.getElementById('face_up').value;
     let tiktok = document.getElementById('tiktok_up').value;
     let instagram = document.getElementById('instagram_up').value;
-    let photo = document.getElementById('photo_up').value;
+    // let photo = document.getElementById('photo_up').value;
 
     console.log(id);
 
@@ -285,7 +282,7 @@ if (name == "") {
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:4000/client/update/' + id,
-                data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram, photo }
+                data: { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram }
             }).done(res => {
                 console.log(res)
                 if (res.status === 200) {

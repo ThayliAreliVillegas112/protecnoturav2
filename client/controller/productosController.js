@@ -10,28 +10,19 @@ const getIdProduct = async id => {
     console.log(document.getElementById("id_deleteProduct").value);
 };
 
-// const blobToBase64 = (blob) => {
-//     return new Promise((resolve, reject) => {
-//         const reader = new FileReader();
-//         reader.readAsDataURL(blob);
-//         reader.onloadend = () => {
-//             resolve(reader.result.split(',')[1]);
-//         }
-//     })
-// }
 
 const getInfoProduct = async id => {
     var product = await getProductById(id);
     console.log(product);
-
+    var dateRegisterr = new Date(product.listProduct[0].dateRegister).toLocaleDateString(); // Esta linea sirve para que solo muestre la fecha sin el tiempo
     document.getElementById('nameProduct').value = product.listProduct[0].name;
     document.getElementById('codeBarras').value = product.listProduct[0].codeBarras;
     document.getElementById('gramaje').value = product.listProduct[0].gramaje;
     document.getElementById('stock').value = product.listProduct[0].stock;
     document.getElementById('price').value = product.listProduct[0].price;
-    document.getElementById('dateRegister').value = product.listProduct[0].dateRegister;
+    document.getElementById('dateRegister').value = dateRegisterr;
     document.getElementById('description').value = product.listProduct[0].description;
-    document.getElementById('photoProduct').value = product.listProduct[0].photoProduct;
+    // document.getElementById('photoProduct').value = product.listProduct[0].photoProduct;
     console.log(product);
     console.log("si esta entrando");
 
@@ -49,7 +40,7 @@ const getInfoUpdateProduct = async id => {
     document.getElementById('price_up').value = product.listProduct[0].price;
     // document.getElementById('dateRegister_up').value = product.listProduct[0].dateRegister;
     document.getElementById('description_up').value = product.listProduct[0].description;
-    document.getElementById('photo_up').value = product.listProduct[0].photoProduct;
+    // document.getElementById('photo_up').value = product.listProduct[0].photoProduct;
     console.log(product);
 
 };
@@ -96,7 +87,7 @@ function registerProduct (){
     let price = document.getElementById('priceRe').value
     let dateRegister = document.getElementById('dateRegisterRe').value;
     let description = document.getElementById('descriptionRe').value;
-    let photoProduct = document.getElementById('photoProductRe').value;
+    // let photoProduct = document.getElementById('photoProductRe').value;
 
 if (name == "") {
     Swal.fire({
@@ -154,7 +145,7 @@ if (name == "") {
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:4000/product/create',
-                data: { name, codeBarras, gramaje, stock, price, dateRegister, description, photoProduct }
+                data: { name, codeBarras, gramaje, stock, price, dateRegister, description }
             }).done(res => {
                 console.log(res)
                 if (res.status === 200) {
@@ -181,8 +172,7 @@ if (name == "") {
             )
         }
     })
-}
-    
+}    
 };
 
 
@@ -204,7 +194,7 @@ function updateProduct (){
     let stock = document.getElementById('stock_up').value;
     let price = document.getElementById('price_up').value;
     let description = document.getElementById('description_up').value;
-    let photoProduct = document.getElementById('photo_up').value;
+    // let photoProduct = document.getElementById('photo_up').value;
     console.log(id);
 
 if (name == "") {
@@ -263,7 +253,7 @@ if (name == "") {
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:4000/product/update/' + id,
-                data: { name, codeBarras, gramaje, stock, price, description, photoProduct}
+                data: { name, codeBarras, gramaje, stock, price, description}
             }).done(res => {
                 console.log(res)
                 if (res.status === 200) {
@@ -343,8 +333,8 @@ function doSearchProduct()
         })
               
         swalWithBootstrapButtons.fire({
-            title: 'Estás seguro de realizar los cambios?',
-            text: "Te sugerimos que revises la información antes de eliminar",
+            title: 'Estás seguro de eliminar este producto?',
+            text: "Te sugerimos que te asegures de querer eliminar el producto, ya que no se puede recuperar información eliminada ",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Confirmar',
@@ -354,7 +344,7 @@ function doSearchProduct()
         if (result.value) { //value
             //aquí estaria el codigo del registro
             
-            console.log("Si entra para hacer los cambios");
+            console.log("Si entra para eliminar");
             let id = document.getElementById("id_deleteProduct").value;
         $.ajax({
             type: 'POST',
@@ -379,6 +369,7 @@ function doSearchProduct()
                 'No se ha realizado la eliminación',
                 'error'
                 )
+                $('#deleteProduct'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
                 }
             }).catch((error)=>{
                 swalWithBootstrapButtons.fire(

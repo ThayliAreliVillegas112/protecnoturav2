@@ -14,6 +14,15 @@ router.get('/segC', async (req, res) => {
     console.log(listSegClient);
 })
 
+router.get('/acuerdo/:id', async (req, res) =>{
+    const { id } = req.params;
+    let listSegClient = await pool.query('SELECT * FROM seguimientoCliente WHERE id = ?', [id]);
+    res.json({
+        status: 200,
+        message: "Se ha encontrado al cliente",
+        listSegClient: listSegClient
+    });
+});
 // router.get('/segPorCliente/:id', async (req, res) => {
 //     const { id } = req.params;
 //     let listSegClient = await pool.query('SELECT * FROM seguimientoCliente s inner JOIN client c on s.client_id = c.id where s.client_id = ?', [id]);

@@ -63,8 +63,11 @@
                         <label class="form-label" for="form1">Buscar</label>
                       </div>
                       <button type="button" class="btn btn-primary buscar">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-search"></i> 
                       </button>
+                      <div>
+                        <a href="historyMaterialProcess.html" class="btn btn-outline-info margen3 btnSeguimiento" role="button" style="float: right; color: black;" >Historial de material procesado  <i class="fa fa-list" aria-hidden="true"></i></a>
+                      </div>
                     </div>
                     <tr>
                       <th scope="col">#</th>
@@ -72,7 +75,7 @@
                       <th scope="col">Stock de harina</th>                    
                       <th scope="col">Registrar material <br/>procesado</th>
                       <th scope="col">Modificar</th>
-                      <th scope="col">Historial material <br/>procesado</th>
+                      <!-- <th scope="col">Historial material <br/>procesado</th> -->
                     </tr>
                   </thead>
                   <tbody>                
@@ -119,41 +122,39 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form onsubmit="return cantMatPrima()">
+                  <form action="javascript:void(0);" onsubmit="return registerMaterialProcesado();" id="formuMaterialPro">
                     <div class="row">
+                      <input type="hidden" id="id_nameMP">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Nombre</label>
-                                <input type="text" id="disabledTextInput" class="form-control" placeholder="Harina de amaranto" disabled >
+                                <input type="text" id="nameMateriap" class="form-control" placeholder="Harina de amaranto" disabled >
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Materia prima</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Seleccione una opción</option>
-                                    <option value="1">Amaranto</option>
-                                    <option value="2">Chía</option>
-                                    <option value="3">Avena</option>
+                                <select class="form-select" aria-label="Default select example" id="mySelect2">
+                                    <option value="">Seleccione una opción</option>
                                   </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Cantidad de materia prima (kg)</label>
-                                <input type="number" id="disabledTextInput" class="form-control">
+                                <input type="number" id="cantMP" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Cantidad de harina hecha (kg)</label>
-                                <input type="number" id="disabledTextInput" class="form-control">
+                                <input type="number" id="cantHarina" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="disabledTextInput" class="form-label">Fecha</label>
-                                <input type="date" id="disabledTextInput" class="form-control">
+                                <input type="date" id="dateRe" class="form-control">
                             </div>
                         </div>
                     </div>

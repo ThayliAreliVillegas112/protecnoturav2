@@ -194,16 +194,83 @@ if (nameM == "") {
     })
 }};
 
-// REGISTRO DE COMPRA 
-function registerCompra (){  //Va a registrar la compra de la materia prima seleccionada
+
+function registerCompra (){
     event.preventDefault();
-    const swalWithBootstrapButtons = Swal.mixin({
+    const swalWithBootstrapButtons = Swal.mixin({ //Solo va a registrar el nombre y precio
         customClass: {
             confirmButton: 'btn btn-success',
             cancelButton: 'btn btn-danger'
         },
         buttonsStyling: false
     })
+    console.log("si entra para el llenado")
+    let lote = document.getElementById('lote').value;
+    let cantidad = document.getElementById('cantidad').value;
+    let nameProveedor = document.getElementById('nameProveedor').value;
+    let claveProductor = document.getElementById('claveProductor').value;
+    let dateCompra = document.getElementById('dateCompra').value;
+    let costales = document.getElementById('costales').value;
+    let claveCostales = document.getElementById('claveCostales').value;
+    let quienEntrego = document.getElementById('quienEntrego').value;
+    let quienRecibio = document.getElementById('quienRecibio').value;
+    let materiaPrima_id = document.getElementById('id_nombreMP').value;
+        
+if (lote == "") {
+    Swal.fire({
+        title: "Completa el campo LOTE",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+} else if (cantidad == ""){
+    Swal.fire({
+        title: "Completa el campo CANTIDAD",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(nameProveedor == ""){
+    Swal.fire({
+        title: "Completa el campo NOMBRE DEL PROVEEDOR",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if (claveProductor == ""){
+    Swal.fire({
+        title: "Completa el campo CLAVE DEL PRODUCTOR",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(dateCompra == ""){
+    Swal.fire({
+        title: "Completa el campo FECHA DE COMPRA",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(costales == ""){
+    Swal.fire({
+        title: "Completa el campo COSTALES",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(claveCostales == ""){
+    Swal.fire({
+        title: "Completa el campo CLAVE COSTALES",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(quienEntrego == ""){
+    Swal.fire({
+        title: "Completa el campo QUIEN ENTREGÓ",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(quienRecibio == ""){
+    Swal.fire({
+        title: "Completa el campo QUIEN RECIBIÓ",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else{
     swalWithBootstrapButtons.fire({
         title: 'Estás seguro de realizar el registro?',
         text: "Te sugerimos que revises la información antes de registrar",
@@ -213,55 +280,39 @@ function registerCompra (){  //Va a registrar la compra de la materia prima sele
         cancelButtonText: 'Cancelar',
         reverseButtons: true
     }).then ((result) => {
-    if (result.isConfirmed) { //value
-        //aquí estaria el codigo del registro
-        console.log("si entra para el llenado")
-        let lote = document.getElementById('lote').value;
-        let cantidad = document.getElementById('cantidad').value;
-        let nameProveedor = document.getElementById('nameProveedor').value;
-        let claveProductor = document.getElementById('claveProductor').value;
-        let dateCompra = document.getElementById('dateCompra').value;
-        let costales = document.getElementById('costales').value;
-        let claveCostales = document.getElementById('claveCostales').value;
-        let quienEntrego = document.getElementById('quienEntrego').value;
-        let quienRecibio = document.getElementById('quienRecibio').value;
-        let materiaPrima_id = document.getElementById('id_nombreMP').value;
-        console.log(result);
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:4000/materiaP/regCompra/',
-        data: { lote, cantidad, nameProveedor, claveProductor, dateCompra, costales, claveCostales, quienEntrego, quienRecibio, materiaPrima_id}
-    }).done(function (res) {
-        console.log(res);
-        console.log("Si registra")
-    });
-        swalWithBootstrapButtons.fire(
-            'Registro exitoso',
-            'Se ha registrado el producto exitosamente',
-            'success'
-        )
-        let formulario = document.getElementById('agregarCompra');
-        formulario.reset();
-        $('#addCompra'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
+        if(result.isConfirmed){
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:4000/materiaP/regCompra/',
+                data: { lote, cantidad, nameProveedor, claveProductor, dateCompra, costales, claveCostales, quienEntrego, quienRecibio, materiaPrima_id}
+            }).done(res => {
+                console.log(res)
+                console.log("Si registra")
+                if (res.status === 200) {
+                    swalWithBootstrapButtons.fire(
+                        'Registro exitoso',
+                        'Se ha registrado la compra exitosamente',
+                        'success'
+                    )
+                    $('#addCompra'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
+                } else {
+                    Swal.fire({
+                        title: "Hubo un problema al registrar",
+                        confirmButtonText: "Aceptar",
+                        icon: "error",
+                    });
+                }
+            });
+        }{
             swalWithBootstrapButtons.fire(
-            'Acción cancelada',
-            'No se ha realizado el registro',
-            'error'
-            )
-            }
-        }).catch((error)=>{
-            swalWithBootstrapButtons.fire(
-                '¡Error al registrar!',
-                'Ha ocurrido un error al registrar el producto',
+                'Acción cancelada',
+                'No se ha realizado el registro',
                 'error'
-              )
-              console.log(error);
-          })        
-};
+            )
+        }
+    })
+}};
+
 
 function updateNamePrice (){
     event.preventDefault();
