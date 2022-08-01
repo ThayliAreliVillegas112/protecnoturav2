@@ -1,12 +1,9 @@
 const express = require ('express');
 const morgan = require('morgan');
-
 //ininicializaciones
 const app = express();
-
 //settings
 app.set('port', process.env.PORT || 4000); //en caso de que haya un puerto definido lo usa, y si no, toma el puerto 4000
-
 //middleware
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
@@ -18,7 +15,6 @@ app.use((req, res, next) => {
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
     next();
 });
-
 //routes
 app.use(require('./routes/index.js'));
 app.use('/client',require('./routes/client.js'));
@@ -28,7 +24,6 @@ app.use('/materiaP',require('./routes/materiaPrima.js'));
 app.use('/harina',require('./routes/harina.js'));
 app.use('/reventado',require('./routes/reventado.js'));
 // app.use('/pelicula',require('./routes/pelicula.js'));
-
 //starting server
 app.listen(app.get('port'), () =>{
 	console.log("Server on port", app.get('port'));

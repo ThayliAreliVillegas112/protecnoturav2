@@ -1,9 +1,7 @@
 const mysql = require('mysql');
-
 const { promisify } = require('util');  // para dar soporte y realizar promises
 const { database } = require('./keys.js');
 const pool = mysql.createPool(database);
-
 pool.getConnection((err, conn) =>{
     if(err){
         if(err.code === 'PROTOCOL_CONNECTION_LOST'){
@@ -20,6 +18,5 @@ pool.getConnection((err, conn) =>{
     console.log("DATABASE IS CONNECTED");
     return;
 });
-
 pool.query = promisify (pool.query);
 module.exports = pool;

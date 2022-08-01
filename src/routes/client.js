@@ -1,20 +1,8 @@
 const express = require('express');
 const router =  express.Router();
-// const multer = require('multer');
-// const path = require('path');
 
 const pool = require('../database.js');
 
-// const storage = multer.diskStorage({
-//     destination:'./src/archivos/',
-//     filename:(req, file, cb) =>{
-//         return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
-//     }
-// })
-
-// const upload = multer({
-//     storage: storage
-// })
 
 router.get('/', async (req, res) => {
     let listClient = await pool.query('SELECT * FROM client');
@@ -39,12 +27,9 @@ router.get('/:id', async (req, res) =>{
 
 router.post('/create', async (req, res)=> {
     const { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram } = req.body;
-    // var dateCreated = new Date().toISOString();
-    //var dateCreated2 = new Date().toLocaleString();
     const client ={
         name, surname, lastname, age, address , phone, extension, email, company, facebook, tiktok, instagram
     };
-
     await pool.query('INSERT INTO client set ?', [client]);
     res.json({
         status: 200,
@@ -53,7 +38,7 @@ router.post('/create', async (req, res)=> {
     });
 });
 
-router.post('/update/:id', async (req, res)=>{
+router.post('/update/:id', async (req, res)=>{  
     const { id } = req.params;
     // var dateUpdate = new Date().toISOString();
     const { name, surname, lastname, age, address, phone, extension, email, company, facebook, tiktok, instagram } = req.body;
@@ -68,14 +53,5 @@ router.post('/update/:id', async (req, res)=>{
         });
 });
 
-// router.post ('/delete/:id', async (req, res) =>{
-//     const { id } = req.params;
-
-//     await pool.query('UPDATE client SET estado = 0 WHERE id = ?', [id]);
-//     res.json({
-//         status: 200,
-//         message: "Se ha eliminado correctamente"
-//     });
-// });
 
 module.exports = router;

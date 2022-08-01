@@ -45,9 +45,7 @@ const getInfoClient = async id => {
     document.getElementById('face').value = client.listClient[0].facebook;
     document.getElementById('tiktok').value = client.listClient[0].tiktok;
     document.getElementById('instagram').value = client.listClient[0].instagram;
-    // document.getElementById('photo').value = client.listClient[0].photo;
     console.log(client);
-    console.log("si esta entrando");
 };
 
 const getInfoUpdateClient = async id => {
@@ -65,7 +63,6 @@ const getInfoUpdateClient = async id => {
     document.getElementById('face_up').value = client.listClient[0].facebook;
     document.getElementById('tiktok_up').value = client.listClient[0].tiktok;
     document.getElementById('instagram_up').value = client.listClient[0].instagram;
-    // document.getElementById('photo_up').value = client.listClient[0].photo;
     console.log(client);
 
 };
@@ -77,10 +74,8 @@ const getClient = () => {
         url: 'http://localhost:4000/client'
     }).done(res => {
         console.log(res.listClient);
-
         let listClient = res.listClient;
         let table = $("#tabla");
-        
         for (let i = 0; i < listClient.length; i++) {
             table.append(
                 "<tr>" +
@@ -89,7 +84,6 @@ const getClient = () => {
                 "<td>" + listClient[i].email + "</td>" +
                 "<td>" + '<button onclick="getInfoClient(' + listClient[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#details"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
                 "<td>" + '<button onclick="getInfoUpdateClient(' + listClient[i].id + ');" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#update"><i class="fa fa-pen" aria-hidden="true"></i></button> </td>' +
-                // "<td>" + '<a href="orderTracking.html" class="btn btn-info" role="button" ><i class="fa fa-list" aria-hidden="true"></i></a> </td>' +
                 "</tr>")
                 
         }
@@ -119,11 +113,6 @@ function registerClient (){
     let facebook = document.getElementById('faceRe').value;
     let tiktok = document.getElementById('tiktokRe').value;
     let instagram = document.getElementById('instagramRe').value;
-    // let photo = document.getElementById('photoRe').value;
-    // let photo1 = localStorage.getItem("photo");
-    // let image = photo1;
-    //     console.log("mmmmmmmmmmm");
-    //     console.log(photo1);
 
 if (name == "") {
     Swal.fire({
