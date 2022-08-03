@@ -1,82 +1,81 @@
-const getReventadoById = async id => {
+const getMezclaById = async id => {
     return await $.ajax({
         type: 'GET',
-        url: 'http://localhost:4000/reventado/' + id
+        url: 'http://localhost:4000/mezcla/' + id
     }).done(res => res);
 };
 
-const getReventadoUsadoById = async id => {
+const getMezclaUsadoById = async id => {
     return await $.ajax({
         type: 'GET',
-        url: 'http://localhost:4000/reventado/usado2/' + id
+        url: 'http://localhost:4000/mezcla/usadoM2/' + id
     }).done(res => res);
 };
 
 
-const getInfoReventado = async id => {
-    var reventado = await getReventadoById(id);
-    console.log(reventado);
-  
-    document.getElementById('cantMPrima').value = reventado.listReventado[0].cantMateriaPrima;
-    document.getElementById('cantAmaReve').value = reventado.listReventado[0].cantidadAmarantoRev;
-    document.getElementById('fechaRe').value = reventado.listReventado[0].dateElaboracion;
-    console.log(reventado);
+const getInfoMezcla = async id => {
+    var mezcla = await getMezclaById(id);
+    console.log(mezcla);
+    document.getElementById('cantChia').value = mezcla.listMezcla[0].cantChia;
+    document.getElementById('cantAmaranto').value = mezcla.listMezcla[0].cantAmaranto;
+    document.getElementById('cantAjonjoli').value = mezcla.listMezcla[0].cantAjonjoli;
+    document.getElementById('totalMezcla').value = mezcla.listMezcla[0].mezclaTotal;
+    console.log(mezcla);
     console.log("si esta entrando");
 };
 
-const getInfoReventadoUsado = async id => {
-    var usado = await getReventadoUsadoById(id);
+const getInfoMezclaUsado = async id => {
+    var usado = await getMezclaUsadoById(id);
     console.log(usado);
-  
-    document.getElementById('amarantoUsar').value = usado.listUsado[0].cantidadAmaranto;
-    // document.getElementById('dateRegistro').value = usado.listUsado[0].dateRegistro;
+    document.getElementById('mezcla').value = usado.listUsado[0].cantidadMezcla;
+    document.getElementById('fecha').value = usado.listUsado[0].dateRegistro;
     console.log(usado);
     console.log("si esta entrando");
 };
 
 
-const getRegistrosAmaranto = () => {
+const getRegistrosMezcla = () => {
     $.ajax({
         type: 'GET',
         headers: { "Accept": "application/json" },
-        url: 'http://localhost:4000/reventado'
+        url: 'http://localhost:4000/mezcla'
     }).done(res => {
-        console.log(res.listReventado);
+        console.log(res.listMezcla);
 
-        let listReventado = res.listReventado;
-        let table = $("#tablaReventado");
+        let listMezcla = res.listMezcla;
+        let table = $("#tablaMezcla");
         
-        for (let i = 0; i < listReventado.length; i++) {
+        for (let i = 0; i < listMezcla.length; i++) {
             table.append(
                 "<tr>" +
                 "<td>" + (i+1) + "</td>" + 
-                "<td>" + listReventado[i].dateElaboracion +"</td>" +
-                "<td>" + '<button onclick="getInfoReventado(' + listReventado[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsReventado"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
+                "<td>" + listMezcla[i].dateElaboracion +"</td>" +
+                "<td>" + '<button onclick="getInfoMezcla(' + listMezcla[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsMezcla"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
                 "</tr>")
                 
         }
         
     });
 };
-getRegistrosAmaranto();
+getRegistrosMezcla();
 
-const getRegistrosAmarantoUsado = () => {
+const getRegistrosMezclaUsado = () => {
     $.ajax({
         type: 'GET',
         headers: { "Accept": "application/json" },
-        url: 'http://localhost:4000/reventado/usado'
+        url: 'http://localhost:4000/mezcla/usadoM'
     }).done(res => {
         console.log(res.listUsado);
 
         let listUsado = res.listUsado;
-        let table = $("#tablaReventadoUsado");
+        let table = $("#tablaMezclaUsado");
         
         for (let i = 0; i < listUsado.length; i++) {
             table.append(
                 "<tr>" +
                 "<td>" + (i+1) + "</td>" + 
                 "<td>" + listUsado[i].dateRegistro +"</td>" +
-                "<td>" + '<button onclick="getInfoReventadoUsado(' + listUsado[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsReventadoUsar"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
+                "<td>" + '<button onclick="getInfoMezclaUsado(' + listUsado[i].id + ');" type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#detailsMezclaMenos"> <i class="fa fa-info infoBtn" aria-hidden="true"></i></button> </td>' +
                 "</tr>")
                 
         }
@@ -84,9 +83,9 @@ const getRegistrosAmarantoUsado = () => {
     });
 };
 
-getRegistrosAmarantoUsado();
+getRegistrosMezclaUsado();
 
-function registerSegReventado (){
+function registerSegMezcla (){
     event.preventDefault();
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -95,25 +94,39 @@ function registerSegReventado (){
         },
         buttonsStyling: false
     })
-    var materiaPrima_id = 3;
-    let cantMateriaPrima = document.getElementById('cantM').value;
-    let cantidadAmarantoRev = document.getElementById('cantAmaReventado').value;
-    let dateElaboracion = document.getElementById('dateElaboracion').value;
-if (cantMateriaPrima == "") {
+    let cantChia = document.getElementById('chia').value;
+    let cantAmaranto = document.getElementById('amaranto').value;
+    let cantAjonjoli = document.getElementById('ajonjoli').value;
+    let mezclaTotal = document.getElementById('mezclaTotal').value;
+    let dateElaboracion = document.getElementById('fechaElaboración').value;
+
+    if (cantChia == "") {
     Swal.fire({
-        title: "Completa el campo CANTIDADA DE MATERIA PRIMA",
+        title: "Completa el campo CANTIDADA DE CHÍA",
         confirmButtonText: "Aceptar",
         icon: "error",
     })
-} else if (cantidadAmarantoRev == ""){
+} else if (cantAmaranto == ""){
     Swal.fire({
-        title: "Completa el campo CANTIDAD DE AMARANTO REVENTADO",
+        title: "Completa el campo CANTIDAD DE AMARANTO",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(cantAjonjoli == ""){
+    Swal.fire({
+        title: "Completa el campo CANTIDAD DE AJONJOLÍ",
+        confirmButtonText: "Aceptar",
+        icon: "error",
+    })
+}else if(mezclaTotal == ""){
+    Swal.fire({
+        title: "Completa el campo MEZCLA TOTAL",
         confirmButtonText: "Aceptar",
         icon: "error",
     })
 }else if(dateElaboracion == ""){
     Swal.fire({
-        title: "Completa el campo FECHA DE ELABORACIÓN",
+        title: "Completa el campo FECHA DE ELABORACIÓN DE MEZCLA",
         confirmButtonText: "Aceptar",
         icon: "error",
     })
@@ -130,19 +143,19 @@ if (cantMateriaPrima == "") {
         if(result.isConfirmed){
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:4000/reventado/create',
-                data: { cantMateriaPrima, cantidadAmarantoRev, dateElaboracion, materiaPrima_id}
+                url: 'http://localhost:4000/mezcla/create',
+                data: { cantChia, cantAmaranto, cantAjonjoli, mezclaTotal, dateElaboracion}
             }).done(res => {
                 console.log(res)
                 if (res.status === 200) {
                     swalWithBootstrapButtons.fire(
                         'Registro exitoso',
-                        'Se ha registrado el seguimiento de reventado',
+                        'Se ha registrado el seguimiento de la mezcla',
                         'success'
                     )
-                    $('#reventadoRegister'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
+                    $('#mezclaRegister'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
                     setTimeout(function() {
-                        let refresh = document.getElementById('tablaReventado');
+                        let refresh = document.getElementById('tablaMezcla');
                          refresh= location.reload();
                         location.reload(true);
                     }, 3000);
@@ -165,7 +178,7 @@ if (cantMateriaPrima == "") {
 }};
 
 
-function registerSegReventadoUsar (){
+function registerSegMezclaUsar (){
     event.preventDefault();
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -174,11 +187,11 @@ function registerSegReventadoUsar (){
         },
         buttonsStyling: false
     })
-    let cantidadAmaranto = document.getElementById('amarantoUsar2').value;
-    let dateRegistro = document.getElementById('date').value;
-if (cantidadAmaranto == ""){
+    let cantidadMezcla = document.getElementById('mezclaU').value;
+    let dateRegistro = document.getElementById('fechaa').value;
+if (cantidadMezcla == ""){
     Swal.fire({
-        title: "Completa el campo CANTIDAD DE AMARANTO",
+        title: "Completa el campo CANTIDAD DE MEZCLA USADA",
         confirmButtonText: "Aceptar",
         icon: "error",
     })
@@ -201,8 +214,8 @@ if (cantidadAmaranto == ""){
         if(result.isConfirmed){
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:4000/reventado/createUsado',
-                data: { cantidadAmaranto, dateRegistro}
+                url: 'http://localhost:4000/mezcla/createUsadoM',
+                data: { cantidadMezcla, dateRegistro}
             }).done(res => {
                 console.log(res)
                 if (res.status === 200) {
@@ -211,9 +224,9 @@ if (cantidadAmaranto == ""){
                         'Se ha registrado el seguimiento de salida de amaranto reventado',
                         'success'
                     )
-                    $('#dismiurStock2'). modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
+                    $('#dismiurStock').modal('hide');  //Sirve para cerrar el modal despues de aceptar la eliminación
                     setTimeout(function() {
-                        let refresh = document.getElementById('tablaReventadoUsado');
+                        let refresh = document.getElementById('tablaMezclaUsado');
                          refresh= location.reload();
                         location.reload(true);
                     }, 3000);
@@ -240,7 +253,7 @@ if (cantidadAmaranto == ""){
 
 function doSearch()
     {
-        const tableReg = document.getElementById('tablaReventado');
+        const tableReg = document.getElementById('tablaMezcla');
         const searchText = document.getElementById('search-focus').value.toLowerCase();
         let total = 0;
 
@@ -277,9 +290,9 @@ function doSearch()
 }
 
 
-function doSearchUsado2()
+function doSearchMezcla()
     {
-        const tableReg = document.getElementById('tablaReventadoUsado');
+        const tableReg = document.getElementById('tablaMezclaUsado');
         const searchText = document.getElementById('search-focus2').value.toLowerCase();
         let total = 0;
 

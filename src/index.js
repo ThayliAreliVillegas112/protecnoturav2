@@ -23,6 +23,8 @@ app.use('/product',require('./routes/productos.js'));
 app.use('/materiaP',require('./routes/materiaPrima.js'));
 app.use('/harina',require('./routes/harina.js'));
 app.use('/reventado',require('./routes/reventado.js'));
+app.use('/mezcla',require('./routes/mezcla.js'));
+app.use('/pedido',require('./routes/pedidos.js'));
 // app.use('/pelicula',require('./routes/pelicula.js'));
 //starting server
 app.listen(app.get('port'), () =>{
