@@ -5,7 +5,7 @@ const pool = require('../database.js');
 
 
 router.get('/', async (req, res) => {
-    let listPedido = await pool.query('SELECT * FROM pedido');
+    let listPedido = await pool.query('SELECT * FROM pedido where status = 1');
     
     res.json({
         status: 200,
@@ -26,15 +26,28 @@ router.get('/:id', async (req, res) =>{
 });
 
 router.post('/create', async (req, res)=> {
-    const { pedido, elaboro, dateSolicitud, age, address, phone, extension, email, company, facebook, tiktok, instagram } = req.body;
-    const client ={
-        name, surname, lastname, age, address , phone, extension, email, company, facebook, tiktok, instagram
+    const { pedido, elaboro, dateSolicitud, status, client_id } = req.body;
+    const pedidos ={
+        pedido, elaboro, dateSolicitud, status, client_id
     };
-    await pool.query('INSERT INTO client set ?', [client]);
+    await pool.query('INSERT INTO pedido set ?', [pedidos]);
     res.json({
         status: 200,
-        message: "Se ha registrado al cliente exitosamente!",
-        client: client
+        message: "Se ha registrado el pedido exitosamente!",
+        pedidos: pedidos
+    });
+});
+
+router.post('/createDetalles', async (req, res)=> {
+    const { cantUnidades, precioTotal, total, pedido_id, product_id	 } = req.body;
+    const pedidosDetalles ={
+        cantUnidades, precioTotal, total, pedido_id, product_id
+    };
+    await pool.query('INSERT INTO detallespedidop set ?', [pedidosDetalles]);
+    res.json({
+        status: 200,
+        message: "Se ha registrado los detalles del pedido exitosamente!",
+        pedidosDetalles: pedidosDetalles
     });
 });
 

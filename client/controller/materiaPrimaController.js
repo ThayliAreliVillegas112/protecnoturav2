@@ -100,7 +100,9 @@ const getMateriaPrima = () => {  //Obtiene todos los registros que se tienen de 
         let table = $("#materiaPrimaTable");
         
         for (let i = 0; i < listMateria.length; i++) {
-            stock = listMateria[i].cantidad;
+            stock = registerStock()
+            console.log(stock)
+            console.log("este de arriba es el stock")
             if(stock == null){
                 stock = "0"
             }
@@ -194,6 +196,35 @@ if (nameM == "") {
     })
 }};
 
+const registerStock = async id =>{
+    
+    // console.log("si entra para el llenado")
+    // document.getElementById("id_nombreMP").value = id;
+    // // let stock = document.getElementById('cantidad').value;
+    // console.log("*******")
+    //     console.log(id)
+    //     console.log(".......")
+    //         $.ajax({
+    //             type: 'GET',
+    //             url: 'http://localhost:4000/materiaP/stock' + id,
+    //             }).done(res => {
+    //             console.log(res)
+    //             console.log("Si muestra")
+    //             if (res.status === 200) {
+    //                 console.log("si muestra el stock")
+    //             } else {
+    //                 console.log("No esta registrando ni madres")
+    //             }
+        
+    // })
+    return await $.ajax({
+        type: 'GET',
+        url: 'http://localhost:4000/materiaP/stock/' + id
+    }).done(res => res);
+};
+
+registerStock()
+
 
 function registerCompra (){
     event.preventDefault();
@@ -215,7 +246,7 @@ function registerCompra (){
     let quienEntrego = document.getElementById('quienEntrego').value;
     let quienRecibio = document.getElementById('quienRecibio').value;
     let materiaPrima_id = document.getElementById('id_nombreMP').value;
-        
+    registerStock();
 if (lote == "") {
     Swal.fire({
         title: "Completa el campo LOTE",

@@ -49,6 +49,26 @@ router.get('/:id', async (req, res) =>{
     });
 });
 
+router.get('/stock/:id', async (req, res) =>{
+    const { id } = req.params;
+    let listStock = await pool.query('SELECT SUM(cantidad) FROM registerCompra WHERE materiaPrima_id = ?', [id]);
+    res.json({
+        status: 200,
+        message: "e esta calculando correctamente el stock",
+        listStock: listStock
+    });
+});
+
+// router.post('/stock/:id', async (req, res)=>{ //Solo actualiza el stock
+//     const { id } = req.params; 
+
+//      await pool.query('SELECT SUM(cantidad) FROM registerCompra WHERE materiaPrima_id = ?', [id]);
+//         res.json({
+//             status: 200,
+//             message: "Se esta calculando correctamente el stock",
+//             stock2: stock2
+//         });
+// });
 router.get('/registerC/:id', async (req, res) =>{
     const { id } = req.params;
     let listMateria = await pool.query('SELECT * FROM registerCompra WHERE id = ?', [id]);
